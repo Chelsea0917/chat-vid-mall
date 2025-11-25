@@ -30,7 +30,6 @@ const BottomNav = () => {
                 <div className="w-14 h-14 rounded-full bg-gradient-primary flex items-center justify-center shadow-lg shadow-primary/30 hover:scale-110 transition-transform">
                   <Icon className="w-6 h-6 text-white" />
                 </div>
-                <span className="text-xs mt-1 text-foreground/60">{item.label}</span>
               </Link>
             );
           }
@@ -45,7 +44,6 @@ const BottomNav = () => {
               )}
             >
               <Icon className={cn("w-6 h-6", isActive && "text-primary")} />
-              <span className="text-xs mt-1">{item.label}</span>
             </Link>
           );
         })}
