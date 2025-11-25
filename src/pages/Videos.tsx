@@ -64,16 +64,16 @@ const Videos = () => {
       </div>
 
       {/* Right Side Actions */}
-      <div className="absolute right-4 bottom-32 z-20 flex flex-col gap-6 items-center">
+      <div className="absolute right-4 bottom-32 z-20 flex flex-col gap-5 items-center">
         <button
           onClick={() => setLiked(!liked)}
           className="flex flex-col items-center gap-1 text-white group"
         >
           <div className={cn(
-            "w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform",
+            "w-11 h-11 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform",
             liked && "bg-primary"
           )}>
-            <Heart className={cn("w-6 h-6", liked && "fill-current")} />
+            <Heart className={cn("w-5 h-5", liked && "fill-current")} />
           </div>
           <span className="text-xs">12.5k</span>
         </button>
@@ -83,24 +83,24 @@ const Videos = () => {
           className="flex flex-col items-center gap-1 text-white"
         >
           <div className={cn(
-            "w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform",
+            "w-11 h-11 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform",
             starred && "bg-accent"
           )}>
-            <Star className={cn("w-6 h-6", starred && "fill-current")} />
+            <Star className={cn("w-5 h-5", starred && "fill-current")} />
           </div>
           <span className="text-xs">3.2k</span>
         </button>
 
         <button className="flex flex-col items-center gap-1 text-white">
-          <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform">
-            <MessageCircle className="w-6 h-6" />
+          <div className="w-11 h-11 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform">
+            <MessageCircle className="w-5 h-5" />
           </div>
           <span className="text-xs">856</span>
         </button>
 
         <button className="flex flex-col items-center gap-1 text-white">
-          <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform">
-            <Share2 className="w-6 h-6" />
+          <div className="w-11 h-11 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform">
+            <Share2 className="w-5 h-5" />
           </div>
           <span className="text-xs">分享</span>
         </button>
