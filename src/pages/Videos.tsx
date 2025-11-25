@@ -19,21 +19,6 @@ const Videos = () => {
 
       {/* Video Info */}
       <div className="absolute bottom-24 left-0 right-20 z-20 px-4 text-white">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-primary flex items-center justify-center">
-            <User className="w-5 h-5" />
-          </div>
-          <div>
-            <div className="font-medium">@ai_lifestyle</div>
-            <div className="text-sm text-white/80">AI生活助手</div>
-          </div>
-          <Button
-            size="sm"
-            className="ml-auto bg-primary hover:bg-primary/90 rounded-full px-6"
-          >
-            关注
-          </Button>
-        </div>
         <p className="text-sm mb-2 line-clamp-2">
           视频播放区域<br />
           🤖 智能生活新体验 | 让AI陪伴你的每一天
