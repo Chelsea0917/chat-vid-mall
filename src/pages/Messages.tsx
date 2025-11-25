@@ -19,6 +19,7 @@ const Messages = () => {
   const [goldCoins, setGoldCoins] = useState(5); // 初始金币数量
   const [showInsufficientCoins, setShowInsufficientCoins] = useState(false);
   const [showTutorial, setShowTutorial] = useState(false);
+  const [tutorialStep, setTutorialStep] = useState(0);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
@@ -155,45 +156,180 @@ const Messages = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-secondary/10 pb-20">
-      {/* Tutorial Overlay - 卡片动画演示 */}
+      {/* Tutorial Guide - 新手引导 */}
       {showTutorial && (
-        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center">
-          <div className="relative w-full max-w-sm mx-4">
-            {/* 提示文字 */}
-            <div className="absolute -top-20 left-0 right-0 text-center">
-              <p className="text-white text-2xl font-bold animate-pulse">
-                👉 右滑喜欢
-              </p>
-            </div>
-            
-            {/* 演示卡片 */}
-            <div 
-              className="relative w-full aspect-[3/4] animate-[slide-in-right_1s_ease-in-out_infinite]"
-              style={{
-                animation: 'swipe-right-demo 2s ease-in-out infinite'
-              }}
-            >
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/20 to-secondary/20 shadow-2xl overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/5 to-secondary/5">
-                  <div className="text-[200px] opacity-90">👤</div>
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <div className="flex items-baseline gap-2 mb-2">
-                    <h2 className="text-3xl font-bold">示例用户</h2>
+        <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4">
+          <div className="relative w-full max-w-sm">
+            {/* Step 1: 欢迎 */}
+            {tutorialStep === 0 && (
+              <div className="bg-background rounded-3xl p-8 text-center animate-scale-in">
+                <div className="text-6xl mb-4">👋</div>
+                <h2 className="text-2xl font-bold mb-3">欢迎来到探索</h2>
+                <p className="text-muted-foreground mb-6">
+                  在这里你可以发现有趣的人<br />
+                  让我们快速了解一下怎么玩
+                </p>
+                <Button 
+                  onClick={() => setTutorialStep(1)}
+                  className="w-full rounded-full h-12"
+                >
+                  开始教程
+                </Button>
+              </div>
+            )}
+
+            {/* Step 2: 右滑喜欢 */}
+            {tutorialStep === 1 && (
+              <div className="bg-background rounded-3xl p-8 animate-scale-in">
+                <div className="text-center mb-6">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
+                    <Heart className="w-8 h-8 text-primary fill-primary" />
                   </div>
-                  <p className="text-white/90">ID: 123456</p>
-                  <p className="text-white/90">这是一个示例简介</p>
+                  <h3 className="text-xl font-bold mb-2">右滑表示喜欢</h3>
+                  <p className="text-muted-foreground text-sm">
+                    向右滑动卡片或点击❤️按钮<br />
+                    表示你对这个人感兴趣
+                  </p>
+                </div>
+                
+                {/* 演示动画 */}
+                <div className="relative h-40 mb-6 flex items-center justify-center">
+                  <div 
+                    className="w-24 h-32 rounded-2xl bg-gradient-primary shadow-lg flex items-center justify-center text-4xl"
+                    style={{
+                      animation: 'swipe-right-demo 2s ease-in-out infinite'
+                    }}
+                  >
+                    👤
+                  </div>
+                  <ChevronRight className="absolute right-8 w-12 h-12 text-primary animate-pulse" />
+                </div>
+
+                <div className="flex gap-3">
+                  <Button 
+                    variant="outline"
+                    onClick={() => setTutorialStep(0)}
+                    className="flex-1 rounded-full"
+                  >
+                    上一步
+                  </Button>
+                  <Button 
+                    onClick={() => setTutorialStep(2)}
+                    className="flex-1 rounded-full"
+                  >
+                    下一步
+                  </Button>
                 </div>
               </div>
+            )}
+
+            {/* Step 3: 左滑不喜欢 */}
+            {tutorialStep === 2 && (
+              <div className="bg-background rounded-3xl p-8 animate-scale-in">
+                <div className="text-center mb-6">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-destructive/10 mb-4">
+                    <X className="w-8 h-8 text-destructive" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">左滑跳过</h3>
+                  <p className="text-muted-foreground text-sm">
+                    向左滑动卡片或点击❌按钮<br />
+                    可以跳过不感兴趣的人
+                  </p>
+                </div>
+                
+                {/* 演示动画 */}
+                <div className="relative h-40 mb-6 flex items-center justify-center">
+                  <ChevronLeft className="absolute left-8 w-12 h-12 text-destructive animate-pulse" />
+                  <div 
+                    className="w-24 h-32 rounded-2xl bg-gradient-to-br from-red-100 to-red-200 shadow-lg flex items-center justify-center text-4xl"
+                    style={{
+                      animation: 'swipe-left-demo 2s ease-in-out infinite'
+                    }}
+                  >
+                    👤
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <Button 
+                    variant="outline"
+                    onClick={() => setTutorialStep(1)}
+                    className="flex-1 rounded-full"
+                  >
+                    上一步
+                  </Button>
+                  <Button 
+                    onClick={() => setTutorialStep(3)}
+                    className="flex-1 rounded-full"
+                  >
+                    下一步
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {/* Step 4: 金币系统 */}
+            {tutorialStep === 3 && (
+              <div className="bg-background rounded-3xl p-8 animate-scale-in">
+                <div className="text-center mb-6">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
+                    <Coins className="w-8 h-8 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">金币系统</h3>
+                  <p className="text-muted-foreground text-sm mb-4">
+                    每次右滑喜欢需要消耗 1 个金币<br />
+                    左滑跳过不消耗金币
+                  </p>
+                  
+                  <div className="bg-muted/50 rounded-2xl p-4 mb-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm">当前金币</span>
+                      <div className="flex items-center gap-1">
+                        <Coins className="w-4 h-4 text-primary" />
+                        <span className="font-bold text-primary">{goldCoins}</span>
+                      </div>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      💡 金币不足时，可以观看广告获取更多金币
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <Button 
+                    variant="outline"
+                    onClick={() => setTutorialStep(2)}
+                    className="flex-1 rounded-full"
+                  >
+                    上一步
+                  </Button>
+                  <Button 
+                    onClick={() => {
+                      setShowTutorial(false);
+                      setTutorialStep(0);
+                    }}
+                    className="flex-1 rounded-full"
+                  >
+                    开始探索
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {/* 进度指示器 */}
+            <div className="flex justify-center gap-2 mt-6">
+              {[0, 1, 2, 3].map((step) => (
+                <div
+                  key={step}
+                  className={cn(
+                    "h-2 rounded-full transition-all",
+                    step === tutorialStep
+                      ? "w-8 bg-primary"
+                      : "w-2 bg-white/30"
+                  )}
+                />
+              ))}
             </div>
-            
-            <Button 
-              onClick={() => setShowTutorial(false)}
-              className="w-full mt-8 rounded-full h-12 bg-white text-foreground hover:bg-white/90"
-            >
-              开始探索
-            </Button>
           </div>
           
           <style>{`
@@ -202,7 +338,15 @@ const Messages = () => {
                 transform: translateX(0) rotate(0deg);
               }
               50% {
-                transform: translateX(80px) rotate(10deg);
+                transform: translateX(60px) rotate(15deg);
+              }
+            }
+            @keyframes swipe-left-demo {
+              0%, 100% {
+                transform: translateX(0) rotate(0deg);
+              }
+              50% {
+                transform: translateX(-60px) rotate(-15deg);
               }
             }
           `}</style>
