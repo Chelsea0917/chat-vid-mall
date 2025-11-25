@@ -46,7 +46,7 @@ const Videos = () => {
       </div>
 
       {/* Right Side Actions */}
-      <div className="absolute right-4 bottom-24 z-20 flex flex-col gap-4 items-center">
+      <div className="absolute right-4 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-4 items-center">
         <button
           onClick={() => setLiked(!liked)}
           className="flex flex-col items-center gap-1 text-white group"
