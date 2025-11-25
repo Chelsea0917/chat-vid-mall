@@ -53,10 +53,7 @@ const Mall = () => {
                   {product.image}
                 </div>
                 <h3 className="text-sm font-medium mb-1 line-clamp-2">{product.name}</h3>
-                <div className="flex items-center justify-between">
-                  <span className="text-lg font-bold text-primary">{product.price}</span>
-                  <span className="text-xs text-muted-foreground">{product.sales}人付款</span>
-                </div>
+                <span className="text-lg font-bold text-primary">{product.price}</span>
               </div>
               <Button
                 size="icon"
