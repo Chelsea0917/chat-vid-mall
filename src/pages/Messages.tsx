@@ -32,16 +32,12 @@ const Messages = () => {
     { id: 5, name: "梦琪", age: 25, avatar: "👩‍🦰", bio: "美食探索者 🍜" },
   ]);
 
-  // 检查是否首次访问（使用新版本的标记，让你可以重新看到一次教程）
+  // 每次进入页面时显示教程
   useEffect(() => {
-    const hasVisited = localStorage.getItem("socialPageVisited_v2");
-    if (!hasVisited) {
-      // 延迟显示教程，让页面先加载
-      setTimeout(() => {
-        setShowTutorial(true);
-      }, 500);
-      localStorage.setItem("socialPageVisited_v2", "true");
-    }
+    // 延迟显示教程，让页面先加载
+    setTimeout(() => {
+      setShowTutorial(true);
+    }, 500);
   }, []);
 
   const handleLike = () => {
