@@ -18,6 +18,9 @@ const Messages = () => {
   const [goldCoins, setGoldCoins] = useState(5); // 初始金币数量
   const [showInsufficientCoins, setShowInsufficientCoins] = useState(false);
   const [showTutorial, setShowTutorial] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
   
   const [cards] = useState([
     { id: 1, name: "小美", age: 24, avatar: "👩", bio: "喜欢旅行和摄影 📷", distance: "2.5km" },
@@ -61,8 +64,56 @@ const Messages = () => {
     setGoldCoins(prev => prev + 5);
   };
 
+  // 触摸开始
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    setDragStart({ x: touch.clientX, y: touch.clientY });
+    setIsDragging(true);
+  };
+
+  // 触摸移动
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging) return;
+    const touch = e.touches[0];
+    const offsetX = touch.clientX - dragStart.x;
+    const offsetY = touch.clientY - dragStart.y;
+    setDragOffset({ x: offsetX, y: offsetY });
+  };
+
+  // 触摸结束
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+    const threshold = 100; // 滑动阈值
+
+    if (Math.abs(dragOffset.x) > threshold) {
+      if (dragOffset.x > 0) {
+        // 右滑 - 喜欢
+        handleLike();
+      } else {
+        // 左滑 - 不喜欢
+        handlePass();
+      }
+    }
+    
+    // 重置拖动状态
+    setDragOffset({ x: 0, y: 0 });
+  };
 
   const currentCard = cards[currentIndex];
+  
+  // 计算卡片的变换样式
+  const getCardTransform = () => {
+    if (!isDragging && dragOffset.x === 0) return {};
+    
+    const rotation = dragOffset.x / 20; // 旋转角度
+    const opacity = 1 - Math.abs(dragOffset.x) / 300; // 透明度变化
+    
+    return {
+      transform: `translateX(${dragOffset.x}px) translateY(${dragOffset.y}px) rotate(${rotation}deg)`,
+      opacity: Math.max(0.5, opacity),
+      transition: isDragging ? 'none' : 'all 0.3s ease-out',
+    };
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-secondary/10 pb-20">
@@ -155,8 +206,36 @@ const Messages = () => {
           </div>
         ) : (
           <div className="relative w-full max-w-sm">
+            {/* 滑动提示指示器 */}
+            {isDragging && (
+              <>
+                {dragOffset.x > 50 && (
+                  <div className="absolute top-1/2 right-full mr-4 -translate-y-1/2 z-50">
+                    <div className="bg-primary text-white px-4 py-2 rounded-full font-bold flex items-center gap-2 shadow-lg">
+                      <Heart className="w-5 h-5 fill-current" />
+                      喜欢
+                    </div>
+                  </div>
+                )}
+                {dragOffset.x < -50 && (
+                  <div className="absolute top-1/2 left-full ml-4 -translate-y-1/2 z-50">
+                    <div className="bg-destructive text-white px-4 py-2 rounded-full font-bold flex items-center gap-2 shadow-lg">
+                      <X className="w-5 h-5" />
+                      不喜欢
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+            
             {/* Card */}
-            <div className="relative w-full aspect-[3/4] animate-scale-in">
+            <div 
+              className="relative w-full aspect-[3/4] animate-scale-in cursor-grab active:cursor-grabbing"
+              style={getCardTransform()}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/20 to-secondary/20 shadow-2xl overflow-hidden">
                 {/* Avatar Background */}
                 <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/5 to-secondary/5">
