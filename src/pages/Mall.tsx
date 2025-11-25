@@ -1,4 +1,4 @@
-import { Search, Heart } from "lucide-react";
+import { Heart } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -29,15 +29,8 @@ const Mall = () => {
     <div className="min-h-screen bg-background pb-20">
       {/* Header */}
       <div className="sticky top-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border/40 pt-safe">
-        <div className="px-4 py-3 flex items-center gap-3">
-          <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <input
-              type="text"
-              placeholder="搜索商品..."
-              className="w-full h-10 pl-10 pr-4 bg-muted/50 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
-            />
-          </div>
+        <div className="px-4 py-3 flex items-center justify-between">
+          <h1 className="text-xl font-bold">商城</h1>
           <button className="relative">
             <Heart className="w-6 h-6 text-foreground" />
             <Badge className="absolute -top-1 -right-1 w-5 h-5 p-0 flex items-center justify-center text-[10px] bg-primary">
