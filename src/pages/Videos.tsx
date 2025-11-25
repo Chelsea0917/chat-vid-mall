@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Heart, Star, MessageCircle, Share2, Plus, User } from "lucide-react";
+import { Heart, User } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const Videos = () => {
   const [liked, setLiked] = useState(false);
-  const [starred, setStarred] = useState(false);
 
   return (
     <div className="relative h-screen bg-black overflow-hidden">
@@ -17,23 +16,6 @@ const Videos = () => {
 
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-video-overlay pointer-events-none" />
-
-      {/* Top Bar */}
-      <div className="absolute top-0 left-0 right-0 z-30 pt-safe">
-        <div className="flex items-center justify-between px-4 py-3">
-          <div className="flex gap-4">
-            <button className="text-white text-sm font-medium">推荐</button>
-            <button className="text-white/60 text-sm">关注</button>
-          </div>
-          <Button
-            size="icon"
-            variant="ghost"
-            className="text-white hover:bg-white/20 rounded-full"
-          >
-            <Plus className="w-5 h-5" />
-          </Button>
-        </div>
-      </div>
 
       {/* Video Info */}
       <div className="absolute bottom-24 left-0 right-20 z-20 px-4 text-white">
@@ -76,33 +58,6 @@ const Videos = () => {
             <Heart className={cn("w-4 h-4", liked && "fill-current")} />
           </div>
           <span className="text-[11px]">12.5k</span>
-        </button>
-
-        <button
-          onClick={() => setStarred(!starred)}
-          className="flex flex-col items-center gap-1 text-white"
-        >
-          <div className={cn(
-            "w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform",
-            starred && "bg-accent"
-          )}>
-            <Star className={cn("w-4 h-4", starred && "fill-current")} />
-          </div>
-          <span className="text-[11px]">3.2k</span>
-        </button>
-
-        <button className="flex flex-col items-center gap-1 text-white">
-          <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform">
-            <MessageCircle className="w-4 h-4" />
-          </div>
-          <span className="text-[11px]">856</span>
-        </button>
-
-        <button className="flex flex-col items-center gap-1 text-white">
-          <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform">
-            <Share2 className="w-4 h-4" />
-          </div>
-          <span className="text-[11px]">分享</span>
         </button>
       </div>
 

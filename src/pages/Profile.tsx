@@ -1,22 +1,17 @@
-import { Settings, ShoppingBag, Heart, Video, Bell, HelpCircle, ChevronRight } from "lucide-react";
+import { Settings, Heart, ChevronRight, Coins, Award } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
 const Profile = () => {
   const menuItems = [
-    { icon: ShoppingBag, label: "我的订单", badge: "3" },
-    { icon: Heart, label: "我的收藏", badge: "" },
-    { icon: Video, label: "我的发布", badge: "" },
-    { icon: Bell, label: "通知设置", badge: "" },
-    { icon: HelpCircle, label: "客服与帮助", badge: "" },
+    { icon: Heart, label: "我的喜欢", badge: "" },
     { icon: Settings, label: "账号设置", badge: "" },
   ];
 
   const stats = [
-    { label: "关注", value: "128" },
-    { label: "粉丝", value: "1.2k" },
-    { label: "获赞", value: "5.8k" },
+    { label: "积分", value: "2,580", icon: Award },
+    { label: "金币", value: "1,268", icon: Coins },
   ];
 
   return (
@@ -39,13 +34,19 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className="flex justify-around">
-          {stats.map((stat) => (
-            <button key={stat.label} className="text-white text-center">
-              <div className="text-lg font-bold">{stat.value}</div>
-              <div className="text-xs text-white/80">{stat.label}</div>
-            </button>
-          ))}
+        <div className="flex justify-around gap-4">
+          {stats.map((stat) => {
+            const Icon = stat.icon;
+            return (
+              <button key={stat.label} className="flex-1 bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-3 text-white">
+                <div className="flex items-center justify-center gap-2 mb-1">
+                  <Icon className="w-4 h-4" />
+                  <div className="text-xl font-bold">{stat.value}</div>
+                </div>
+                <div className="text-xs text-white/80">{stat.label}</div>
+              </button>
+            );
+          })}
         </div>
       </div>
 

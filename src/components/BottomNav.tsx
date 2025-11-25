@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, Video, MessageCircle, Bell, User } from "lucide-react";
+import { Home, Video, MessageCircle, Heart, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const BottomNav = () => {
@@ -7,9 +7,9 @@ const BottomNav = () => {
   
   const navItems = [
     { path: "/", icon: Home, label: "商城" },
-    { path: "/videos", icon: Video, label: "看视频" },
+    { path: "/videos", icon: Video, label: "视频" },
     { path: "/chat", icon: MessageCircle, label: "聊天", isCenter: true },
-    { path: "/messages", icon: Bell, label: "消息" },
+    { path: "/messages", icon: Heart, label: "社交" },
     { path: "/profile", icon: User, label: "我" },
   ];
 
