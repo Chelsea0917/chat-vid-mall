@@ -1,11 +1,24 @@
-import { useState } from "react";
-import { X, Heart, Info } from "lucide-react";
+import { useState, useEffect } from "react";
+import { X, Heart, Info, Coins, ChevronLeft, ChevronRight } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 const Messages = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [goldCoins, setGoldCoins] = useState(5); // 初始金币数量
+  const [showInsufficientCoins, setShowInsufficientCoins] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(false);
+  
   const [cards] = useState([
     { id: 1, name: "小美", age: 24, avatar: "👩", bio: "喜欢旅行和摄影 📷", distance: "2.5km" },
     { id: 2, name: "阳光", age: 26, avatar: "🧑", bio: "健身爱好者 💪", distance: "3.8km" },
@@ -14,7 +27,22 @@ const Messages = () => {
     { id: 5, name: "梦琪", age: 25, avatar: "👩‍🦰", bio: "美食探索者 🍜", distance: "2.1km" },
   ]);
 
+  // 检查是否首次访问
+  useEffect(() => {
+    const hasVisited = localStorage.getItem("socialPageVisited");
+    if (!hasVisited) {
+      setShowTutorial(true);
+      localStorage.setItem("socialPageVisited", "true");
+    }
+  }, []);
+
   const handleLike = () => {
+    if (goldCoins < 1) {
+      setShowInsufficientCoins(true);
+      return;
+    }
+    
+    setGoldCoins(prev => prev - 1);
     if (currentIndex < cards.length - 1) {
       setCurrentIndex(currentIndex + 1);
     }
@@ -26,17 +54,90 @@ const Messages = () => {
     }
   };
 
+  const handleWatchAd = () => {
+    // 这里可以集成广告SDK
+    setShowInsufficientCoins(false);
+    // 观看广告后增加金币
+    setGoldCoins(prev => prev + 5);
+  };
+
 
   const currentCard = cards[currentIndex];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-secondary/10 pb-20">
+      {/* Tutorial Overlay */}
+      {showTutorial && (
+        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center">
+          <div className="relative w-full max-w-sm mx-4">
+            <div className="bg-background rounded-3xl p-8 text-center">
+              <h2 className="text-2xl font-bold mb-6">玩法提示</h2>
+              
+              <div className="space-y-8 mb-8">
+                {/* 左滑示意 */}
+                <div className="flex items-center justify-center gap-4">
+                  <div className="flex items-center gap-2 animate-slide-in-right">
+                    <ChevronLeft className="w-8 h-8 text-destructive animate-pulse" />
+                    <div className="w-16 h-20 rounded-2xl bg-gradient-to-br from-red-100 to-red-200 flex items-center justify-center">
+                      <X className="w-8 h-8 text-destructive" />
+                    </div>
+                  </div>
+                  <span className="text-lg font-medium">左滑不喜欢</span>
+                </div>
+                
+                {/* 右滑示意 */}
+                <div className="flex items-center justify-center gap-4">
+                  <span className="text-lg font-medium">右滑喜欢</span>
+                  <div className="flex items-center gap-2 animate-slide-in-right">
+                    <div className="w-16 h-20 rounded-2xl bg-gradient-primary flex items-center justify-center">
+                      <Heart className="w-8 h-8 text-white fill-white" />
+                    </div>
+                    <ChevronRight className="w-8 h-8 text-primary animate-pulse" />
+                  </div>
+                </div>
+              </div>
+              
+              <Button 
+                onClick={() => setShowTutorial(false)}
+                className="w-full rounded-full h-12"
+              >
+                开始探索
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 金币不足提醒 */}
+      <AlertDialog open={showInsufficientCoins} onOpenChange={setShowInsufficientCoins}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2">
+              <Coins className="w-5 h-5 text-primary" />
+              金币不足
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-base">
+              看广告赚金币
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction onClick={handleWatchAd}>
+              观看广告
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
       {/* Header */}
       <div className="sticky top-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border/40 pt-safe">
-        <div className="px-4 py-3 flex items-center justify-center">
+        <div className="px-4 py-3 flex items-center justify-between">
           <h1 className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
             探索
           </h1>
+          <div className="flex items-center gap-1 bg-primary/10 px-3 py-1 rounded-full">
+            <Coins className="w-4 h-4 text-primary" />
+            <span className="text-sm font-bold text-primary">{goldCoins}</span>
+          </div>
         </div>
       </div>
 
