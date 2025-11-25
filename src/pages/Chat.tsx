@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Send, Mic, Image, Smile } from "lucide-react";
+import { Send, Mic } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -49,16 +49,10 @@ const Chat = () => {
       {/* Input Area */}
       <div className="bg-background border-t border-border px-4 py-3 pb-20">
         <div className="flex items-center gap-2">
-          <Button size="icon" variant="ghost" className="text-muted-foreground">
-            <Smile className="w-5 h-5" />
-          </Button>
           <Input
             placeholder="输入消息..."
             className="flex-1 rounded-full bg-muted/50 border-0"
           />
-          <Button size="icon" variant="ghost" className="text-muted-foreground">
-            <Image className="w-5 h-5" />
-          </Button>
           <Button size="icon" variant="ghost" className="text-muted-foreground">
             <Mic className="w-5 h-5" />
           </Button>
