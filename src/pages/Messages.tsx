@@ -264,29 +264,24 @@ const Messages = () => {
               </div>
             )}
 
-            {/* Step 4: 金币系统 */}
+            {/* Step 4: 完成教程 */}
             {tutorialStep === 3 && (
               <div className="bg-background rounded-3xl p-8 animate-scale-in">
                 <div className="text-center mb-6">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
-                    <Coins className="w-8 h-8 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">金币系统</h3>
-                  <p className="text-muted-foreground text-sm mb-4">
-                    每次右滑喜欢需要消耗 1 个金币<br />
-                    左滑跳过不消耗金币
+                  <div className="text-6xl mb-4">🎉</div>
+                  <h3 className="text-2xl font-bold mb-3">恭喜完成指南！</h3>
+                  <p className="text-muted-foreground text-base mb-4">
+                    你已经掌握了所有玩法<br />
+                    获得新手奖励 10 金币
                   </p>
                   
-                  <div className="bg-muted/50 rounded-2xl p-4 mb-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm">当前金币</span>
-                      <div className="flex items-center gap-1">
-                        <Coins className="w-4 h-4 text-primary" />
-                        <span className="font-bold text-primary">{goldCoins}</span>
-                      </div>
+                  <div className="bg-gradient-primary/10 rounded-2xl p-6 mb-4">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <Coins className="w-8 h-8 text-primary" />
+                      <span className="text-4xl font-bold text-primary">+10</span>
                     </div>
-                    <p className="text-xs text-muted-foreground">
-                      💡 金币不足时，可以观看广告获取更多金币
+                    <p className="text-sm text-muted-foreground">
+                      开始你的探索之旅吧！
                     </p>
                   </div>
                 </div>
@@ -301,6 +296,7 @@ const Messages = () => {
                   </Button>
                   <Button 
                     onClick={() => {
+                      setGoldCoins(prev => prev + 10);
                       setShowTutorial(false);
                       setTutorialStep(0);
                     }}
