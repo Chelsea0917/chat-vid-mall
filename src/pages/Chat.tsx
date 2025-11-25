@@ -51,7 +51,7 @@ const Chat = () => {
         <div className="flex items-center gap-2">
           <Input
             placeholder="输入消息..."
-            className="flex-1 rounded-full bg-muted/50 border-0"
+            className="flex-1 max-w-[60%] rounded-full bg-muted/50 border-0"
           />
           <Button size="icon" variant="ghost" className="text-muted-foreground">
             <Mic className="w-5 h-5" />
