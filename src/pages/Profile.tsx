@@ -18,13 +18,7 @@ const Profile = () => {
     <div className="min-h-screen bg-muted/30 pb-20">
       {/* Profile Header */}
       <div className="bg-gradient-primary pt-safe pb-20 px-6">
-        <div className="flex justify-end mb-8">
-          <Button size="icon" variant="ghost" className="text-white">
-            <Settings className="w-5 h-5" />
-          </Button>
-        </div>
-        
-        <div className="flex items-center gap-4 mb-6">
+        <div className="flex items-center gap-4 mb-6 pt-8">
           <div className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-4xl border-4 border-white/30">
             👤
           </div>
