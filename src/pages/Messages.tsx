@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import {
   AlertDialog,
   AlertDialogAction,
+  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -23,18 +24,21 @@ const Messages = () => {
   const [isDragging, setIsDragging] = useState(false);
   
   const [cards] = useState([
-    { id: 1, name: "小美", age: 24, avatar: "👩", bio: "喜欢旅行和摄影 📷", distance: "2.5km" },
-    { id: 2, name: "阳光", age: 26, avatar: "🧑", bio: "健身爱好者 💪", distance: "3.8km" },
-    { id: 3, name: "静雯", age: 23, avatar: "👧", bio: "咖啡☕️与书籍📚", distance: "1.2km" },
-    { id: 4, name: "浩然", age: 28, avatar: "👨", bio: "音乐制作人 🎵", distance: "4.5km" },
-    { id: 5, name: "梦琪", age: 25, avatar: "👩‍🦰", bio: "美食探索者 🍜", distance: "2.1km" },
+    { id: 1, name: "小美", age: 24, avatar: "👩", bio: "喜欢旅行和摄影 📷" },
+    { id: 2, name: "阳光", age: 26, avatar: "🧑", bio: "健身爱好者 💪" },
+    { id: 3, name: "静雯", age: 23, avatar: "👧", bio: "咖啡☕️与书籍📚" },
+    { id: 4, name: "浩然", age: 28, avatar: "👨", bio: "音乐制作人 🎵" },
+    { id: 5, name: "梦琪", age: 25, avatar: "👩‍🦰", bio: "美食探索者 🍜" },
   ]);
 
   // 检查是否首次访问
   useEffect(() => {
     const hasVisited = localStorage.getItem("socialPageVisited");
     if (!hasVisited) {
-      setShowTutorial(true);
+      // 延迟显示教程，让页面先加载
+      setTimeout(() => {
+        setShowTutorial(true);
+      }, 500);
       localStorage.setItem("socialPageVisited", "true");
     }
   }, []);
@@ -151,45 +155,57 @@ const Messages = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-secondary/10 pb-20">
-      {/* Tutorial Overlay */}
+      {/* Tutorial Overlay - 卡片动画演示 */}
       {showTutorial && (
         <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center">
           <div className="relative w-full max-w-sm mx-4">
-            <div className="bg-background rounded-3xl p-8 text-center">
-              <h2 className="text-2xl font-bold mb-6">玩法提示</h2>
-              
-              <div className="space-y-8 mb-8">
-                {/* 左滑示意 */}
-                <div className="flex items-center justify-center gap-4">
-                  <div className="flex items-center gap-2 animate-slide-in-right">
-                    <ChevronLeft className="w-8 h-8 text-destructive animate-pulse" />
-                    <div className="w-16 h-20 rounded-2xl bg-gradient-to-br from-red-100 to-red-200 flex items-center justify-center">
-                      <X className="w-8 h-8 text-destructive" />
-                    </div>
-                  </div>
-                  <span className="text-lg font-medium">左滑不喜欢</span>
+            {/* 提示文字 */}
+            <div className="absolute -top-20 left-0 right-0 text-center">
+              <p className="text-white text-2xl font-bold animate-pulse">
+                👉 右滑喜欢
+              </p>
+            </div>
+            
+            {/* 演示卡片 */}
+            <div 
+              className="relative w-full aspect-[3/4] animate-[slide-in-right_1s_ease-in-out_infinite]"
+              style={{
+                animation: 'swipe-right-demo 2s ease-in-out infinite'
+              }}
+            >
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/20 to-secondary/20 shadow-2xl overflow-hidden">
+                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/5 to-secondary/5">
+                  <div className="text-[200px] opacity-90">👤</div>
                 </div>
-                
-                {/* 右滑示意 */}
-                <div className="flex items-center justify-center gap-4">
-                  <span className="text-lg font-medium">右滑喜欢</span>
-                  <div className="flex items-center gap-2 animate-slide-in-right">
-                    <div className="w-16 h-20 rounded-2xl bg-gradient-primary flex items-center justify-center">
-                      <Heart className="w-8 h-8 text-white fill-white" />
-                    </div>
-                    <ChevronRight className="w-8 h-8 text-primary animate-pulse" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <div className="flex items-baseline gap-2 mb-2">
+                    <h2 className="text-3xl font-bold">示例用户</h2>
                   </div>
+                  <p className="text-white/90">ID: 123456</p>
+                  <p className="text-white/90">这是一个示例简介</p>
                 </div>
               </div>
-              
-              <Button 
-                onClick={() => setShowTutorial(false)}
-                className="w-full rounded-full h-12"
-              >
-                开始探索
-              </Button>
             </div>
+            
+            <Button 
+              onClick={() => setShowTutorial(false)}
+              className="w-full mt-8 rounded-full h-12 bg-white text-foreground hover:bg-white/90"
+            >
+              开始探索
+            </Button>
           </div>
+          
+          <style>{`
+            @keyframes swipe-right-demo {
+              0%, 100% {
+                transform: translateX(0) rotate(0deg);
+              }
+              50% {
+                transform: translateX(80px) rotate(10deg);
+              }
+            }
+          `}</style>
         </div>
       )}
 
@@ -206,6 +222,7 @@ const Messages = () => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
+            <AlertDialogCancel>关闭</AlertDialogCancel>
             <AlertDialogAction onClick={handleWatchAd}>
               观看广告
             </AlertDialogAction>
@@ -298,8 +315,8 @@ const Messages = () => {
                     <h2 className="text-3xl font-bold">{currentCard.name}</h2>
                     <span className="text-xl">{currentCard.age}</span>
                   </div>
-                  <p className="text-white/90 mb-2">{currentCard.bio}</p>
-                  <p className="text-sm text-white/70">📍 距离你 {currentCard.distance}</p>
+                  <p className="text-white/80 text-sm mb-1">ID: {currentCard.id}</p>
+                  <p className="text-white/90">{currentCard.bio}</p>
                 </div>
               </div>
             </div>
