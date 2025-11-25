@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { X, Heart, Star, Info } from "lucide-react";
+import { X, Heart, Info } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -26,11 +26,6 @@ const Messages = () => {
     }
   };
 
-  const handleSuperLike = () => {
-    if (currentIndex < cards.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    }
-  };
 
   const currentCard = cards[currentIndex];
 
@@ -99,14 +94,6 @@ const Messages = () => {
                 className="w-16 h-16 rounded-full bg-white hover:bg-white/90 shadow-lg hover:scale-110 transition-transform"
               >
                 <X className="w-8 h-8 text-red-500" />
-              </Button>
-
-              <Button
-                size="icon"
-                onClick={handleSuperLike}
-                className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 shadow-lg hover:scale-110 transition-transform"
-              >
-                <Star className="w-6 h-6 text-white fill-white" />
               </Button>
 
               <Button

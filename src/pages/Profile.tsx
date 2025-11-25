@@ -1,11 +1,11 @@
-import { Settings, Heart, ChevronRight, Coins, Award } from "lucide-react";
+import { Settings, ChevronRight, Coins, Award, CreditCard } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
 const Profile = () => {
   const menuItems = [
-    { icon: Heart, label: "我的喜欢", badge: "" },
+    { icon: CreditCard, label: "积分充值", badge: "" },
     { icon: Settings, label: "账号设置", badge: "" },
   ];
 
