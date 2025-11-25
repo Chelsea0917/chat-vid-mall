@@ -99,6 +99,40 @@ const Messages = () => {
     setDragOffset({ x: 0, y: 0 });
   };
 
+  // 鼠标按下
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setDragStart({ x: e.clientX, y: e.clientY });
+    setIsDragging(true);
+  };
+
+  // 鼠标移动
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    const offsetX = e.clientX - dragStart.x;
+    const offsetY = e.clientY - dragStart.y;
+    setDragOffset({ x: offsetX, y: offsetY });
+  };
+
+  // 鼠标松开
+  const handleMouseUp = () => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    const threshold = 100; // 滑动阈值
+
+    if (Math.abs(dragOffset.x) > threshold) {
+      if (dragOffset.x > 0) {
+        // 右滑 - 喜欢
+        handleLike();
+      } else {
+        // 左滑 - 不喜欢
+        handlePass();
+      }
+    }
+    
+    // 重置拖动状态
+    setDragOffset({ x: 0, y: 0 });
+  };
+
   const currentCard = cards[currentIndex];
   
   // 计算卡片的变换样式
@@ -235,6 +269,10 @@ const Messages = () => {
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseUp}
             >
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/20 to-secondary/20 shadow-2xl overflow-hidden">
                 {/* Avatar Background */}
