@@ -355,7 +355,13 @@ const Messages = () => {
 
       {/* 金币不足提醒 */}
       <AlertDialog open={showInsufficientCoins} onOpenChange={setShowInsufficientCoins}>
-        <AlertDialogContent>
+        <AlertDialogContent className="max-w-sm">
+          <button
+            onClick={() => setShowInsufficientCoins(false)}
+            className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+          >
+            <X className="h-4 w-4" />
+          </button>
           <AlertDialogHeader>
             <AlertDialogTitle className="flex items-center gap-2">
               <Coins className="w-5 h-5 text-primary" />
@@ -366,7 +372,6 @@ const Messages = () => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>关闭</AlertDialogCancel>
             <AlertDialogAction onClick={handleWatchAd}>
               观看广告
             </AlertDialogAction>
