@@ -257,28 +257,6 @@ const Messages = () => {
           </div>
         ) : (
           <div className="relative w-full max-w-sm">
-            {/* 滑动提示指示器 */}
-            {isDragging && (
-              <>
-                {dragOffset.x > 50 && (
-                  <div className="absolute top-1/2 right-full mr-4 -translate-y-1/2 z-50">
-                    <div className="bg-primary text-white px-4 py-2 rounded-full font-bold flex items-center gap-2 shadow-lg">
-                      <Heart className="w-5 h-5 fill-current" />
-                      喜欢
-                    </div>
-                  </div>
-                )}
-                {dragOffset.x < -50 && (
-                  <div className="absolute top-1/2 left-full ml-4 -translate-y-1/2 z-50">
-                    <div className="bg-destructive text-white px-4 py-2 rounded-full font-bold flex items-center gap-2 shadow-lg">
-                      <X className="w-5 h-5" />
-                      不喜欢
-                    </div>
-                  </div>
-                )}
-              </>
-            )}
-            
             {/* Card */}
             <div 
               className="relative w-full aspect-[3/4] animate-scale-in cursor-grab active:cursor-grabbing"
