@@ -1,4 +1,4 @@
-import { Settings, ChevronRight, Coins, Award, CreditCard } from "lucide-react";
+import { Settings, ChevronRight, Coins, Gem, CreditCard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import BottomNav from "@/components/BottomNav";
 import { Button } from "@/components/ui/button";
@@ -8,13 +8,13 @@ const Profile = () => {
   const navigate = useNavigate();
   
   const menuItems = [
-    { icon: CreditCard, label: "积分充值", badge: "", path: "/recharge" },
+    { icon: CreditCard, label: "钻石充值", badge: "", path: "/recharge" },
     { icon: Settings, label: "账号设置", badge: "", path: "/account-settings" },
   ];
 
   const stats = [
-    { label: "积分", value: "2,580", icon: Award },
-    { label: "金币", value: "1,268", icon: Coins },
+    { label: "钻石", value: "2,580", icon: Gem, color: "text-[hsl(var(--diamond-blue))]" },
+    { label: "金币", value: "1,268", icon: Coins, color: "text-[hsl(var(--coin-gold))]" },
   ];
 
   return (
@@ -37,7 +37,7 @@ const Profile = () => {
             return (
               <button key={stat.label} className="flex-1 bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-3 text-white">
                 <div className="flex items-center justify-center gap-2 mb-1">
-                  <Icon className="w-4 h-4" />
+                  <Icon className={`w-5 h-5 ${stat.color}`} />
                   <div className="text-xl font-bold">{stat.value}</div>
                 </div>
                 <div className="text-xs text-white/80">{stat.label}</div>

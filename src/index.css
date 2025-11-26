@@ -52,6 +52,12 @@ All colors MUST be HSL.
     /* 动画 */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    /* 金币和钻石颜色 */
+    --coin-gold: 45 100% 51%;
+    --coin-gold-light: 48 100% 70%;
+    --diamond-blue: 200 100% 50%;
+    --diamond-white: 200 20% 95%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;

@@ -1,14 +1,74 @@
-import { useState } from "react";
-import { Heart, User } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Heart, Coins } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const Videos = () => {
   const [liked, setLiked] = useState(false);
+  const [activeTab, setActiveTab] = useState<"recommend" | "earn">("recommend");
+  const [adProgress, setAdProgress] = useState(0);
+  const [showReward, setShowReward] = useState(false);
+  const [earnedCoins, setEarnedCoins] = useState(0);
+
+  // 广告进度条逻辑
+  useEffect(() => {
+    if (activeTab === "earn" && adProgress < 100) {
+      const timer = setInterval(() => {
+        setAdProgress((prev) => {
+          if (prev >= 100) {
+            clearInterval(timer);
+            // 显示奖励提示
+            setShowReward(true);
+            setEarnedCoins(2);
+            setTimeout(() => setShowReward(false), 2000);
+            return 100;
+          }
+          return prev + 1;
+        });
+      }, 100); // 10秒完成 (100 * 100ms = 10s)
+
+      return () => clearInterval(timer);
+    }
+  }, [activeTab, adProgress]);
+
+  // 切换标签时重置进度
+  useEffect(() => {
+    if (activeTab === "earn") {
+      setAdProgress(0);
+    }
+  }, [activeTab]);
 
   return (
     <div className="relative h-screen bg-black overflow-hidden">
+      {/* Top Category Tabs */}
+      <div className="absolute top-0 left-0 right-0 z-30 pt-safe">
+        <div className="flex items-center justify-center gap-8 py-4">
+          <button
+            onClick={() => setActiveTab("recommend")}
+            className={cn(
+              "text-lg font-medium transition-all",
+              activeTab === "recommend"
+                ? "text-white scale-110"
+                : "text-white/60"
+            )}
+          >
+            推荐
+          </button>
+          <button
+            onClick={() => setActiveTab("earn")}
+            className={cn(
+              "text-lg font-medium transition-all flex items-center gap-1",
+              activeTab === "earn"
+                ? "text-white scale-110"
+                : "text-white/60"
+            )}
+          >
+            <Coins className="w-4 h-4 text-[hsl(var(--coin-gold))]" />
+            赚金币
+          </button>
+        </div>
+      </div>
+
       {/* Video Background */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="text-white/20 text-9xl">🎬</div>
@@ -16,6 +76,50 @@ const Videos = () => {
 
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-video-overlay pointer-events-none" />
+
+      {/* Ad Progress Indicator (only for earn tab) */}
+      {activeTab === "earn" && (
+        <div className="absolute top-20 right-4 z-30">
+          <div className="relative w-12 h-12">
+            {/* Progress Circle */}
+            <svg className="w-12 h-12 transform -rotate-90">
+              <circle
+                cx="24"
+                cy="24"
+                r="20"
+                stroke="rgba(255,255,255,0.2)"
+                strokeWidth="3"
+                fill="none"
+              />
+              <circle
+                cx="24"
+                cy="24"
+                r="20"
+                stroke="hsl(var(--coin-gold))"
+                strokeWidth="3"
+                fill="none"
+                strokeDasharray={`${2 * Math.PI * 20}`}
+                strokeDashoffset={`${2 * Math.PI * 20 * (1 - adProgress / 100)}`}
+                className="transition-all duration-100"
+              />
+            </svg>
+            {/* Coin Icon */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Coins className="w-6 h-6 text-[hsl(var(--coin-gold))]" />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Reward Notification */}
+      {showReward && (
+        <div className="absolute top-32 left-1/2 -translate-x-1/2 z-40 animate-fade-in">
+          <div className="bg-black/70 backdrop-blur-sm rounded-full px-6 py-3 flex items-center gap-2">
+            <Coins className="w-5 h-5 text-[hsl(var(--coin-gold))]" />
+            <span className="text-white font-medium">+{earnedCoins}金币</span>
+          </div>
+        </div>
+      )}
 
       {/* Video Info */}
       <div className="absolute bottom-24 left-0 right-20 z-20 px-4 text-white">
