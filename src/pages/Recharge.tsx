@@ -102,12 +102,7 @@ const Recharge = () => {
             </span>
           </div>
           
-          <div className="bg-muted/50 rounded-lg p-4 space-y-2">
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">兑换比例</span>
-              <span className="font-medium">1积分 = 1元</span>
-            </div>
-            <div className="h-px bg-border" />
+          <div className="bg-muted/50 rounded-lg p-4">
             <div className="flex justify-between text-base">
               <span className="text-muted-foreground">应付金额</span>
               <span className="text-2xl font-bold text-primary">
