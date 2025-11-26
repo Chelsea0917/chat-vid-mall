@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Send } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import { Input } from "@/components/ui/input";
@@ -11,40 +11,65 @@ const Chat = () => {
     { id: 2, type: "user", text: "最近有什么新品推荐吗？" },
     { id: 3, type: "ai", text: "当然有！最近上新了几款智能设备，比如AI智能音箱和无线耳机Pro，都很受欢迎。需要我详细介绍吗？" },
   ]);
+  const [audioLevel, setAudioLevel] = useState(0);
+  const animationFrameRef = useRef<number>();
+
+  useEffect(() => {
+    // Simulate audio level changes for demo
+    const simulateAudioLevel = () => {
+      setAudioLevel(Math.random() * 100);
+      animationFrameRef.current = requestAnimationFrame(simulateAudioLevel);
+    };
+    
+    simulateAudioLevel();
+    
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, []);
+
+  const getVoiceScale = () => {
+    return 1 + (audioLevel / 100) * 0.5; // Scale from 1 to 1.5 based on audio level
+  };
 
   return (
     <div className="flex flex-col h-screen bg-muted/30">
-      {/* Header */}
-      <header className="bg-background border-b border-border px-4 py-3 pt-safe">
-        <div className="flex flex-col items-center gap-3">
-          <h1 className="font-semibold">AI助手</h1>
-        </div>
-      </header>
-
       <Tabs defaultValue="text" className="flex-1 flex flex-col">
-        <div className="flex justify-center px-4 py-3 bg-background border-b border-border">
+        <div className="flex justify-center px-4 py-3 bg-background border-b border-border pt-safe">
           <TabsList className="grid w-full max-w-xs grid-cols-2">
-            <TabsTrigger value="voice">语音对话</TabsTrigger>
-            <TabsTrigger value="text">文字对话</TabsTrigger>
+            <TabsTrigger value="voice">语音</TabsTrigger>
+            <TabsTrigger value="text">文字</TabsTrigger>
           </TabsList>
         </div>
 
         {/* Voice Chat Mode */}
         <TabsContent value="voice" className="flex-1 flex items-center justify-center m-0 data-[state=active]:flex">
-          <div className="relative">
-            <div className="w-32 h-32 rounded-full bg-gradient-primary animate-pulse" />
-            <div className="absolute inset-0 w-32 h-32 rounded-full bg-gradient-primary animate-ping opacity-75" />
+          <div className="relative flex items-center justify-center">
+            <div 
+              className="w-32 h-32 rounded-full bg-gradient-primary transition-transform duration-100"
+              style={{ transform: `scale(${getVoiceScale()})` }}
+            />
+            <div 
+              className="absolute inset-0 w-32 h-32 rounded-full bg-gradient-primary opacity-30"
+              style={{ transform: `scale(${getVoiceScale() * 1.2})` }}
+            />
+            <div 
+              className="absolute inset-0 w-32 h-32 rounded-full bg-gradient-primary opacity-20"
+              style={{ transform: `scale(${getVoiceScale() * 1.4})` }}
+            />
           </div>
         </TabsContent>
 
         {/* Text Chat Mode */}
         <TabsContent value="text" className="flex-1 flex flex-col m-0 data-[state=active]:flex">
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto px-4 py-6 space-y-4">
+          <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 flex flex-col">
             {messages.map((msg) => (
               <div
                 key={msg.id}
-                className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"} animate-slide-up`}
+                className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"} animate-fade-in`}
               >
                 <div
                   className={`max-w-[75%] rounded-2xl px-4 py-3 ${
