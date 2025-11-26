@@ -1,25 +1,41 @@
 import { useState } from "react";
-import { ArrowLeft, Coins, Zap, Gift } from "lucide-react";
+import { ArrowLeft, Coins } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
 
 const Recharge = () => {
   const navigate = useNavigate();
-  const [selectedPackage, setSelectedPackage] = useState<number | null>(null);
-
-  const packages = [
-    { id: 1, credits: 10, price: "¥10", bonus: 0, icon: Coins, popular: false },
-    { id: 2, credits: 50, price: "¥50", bonus: 5, icon: Zap, popular: true },
-    { id: 3, credits: 100, price: "¥100", bonus: 20, icon: Gift, popular: false },
-    { id: 4, credits: 500, price: "¥500", bonus: 150, icon: Gift, popular: false },
-  ];
+  const [credits, setCredits] = useState<string>("");
 
   const handleRecharge = () => {
-    if (!selectedPackage) {
+    const creditAmount = parseInt(credits);
+    
+    if (!credits || isNaN(creditAmount) || creditAmount <= 0) {
       toast({
-        title: "请选择充值套餐",
+        title: "请输入有效的积分数量",
+        description: "积分数量必须为正整数",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (creditAmount < 1) {
+      toast({
+        title: "充值金额过低",
+        description: "最低充值1积分",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (creditAmount > 10000) {
+      toast({
+        title: "充值金额过高",
+        description: "单次最多充值10000积分",
         variant: "destructive",
       });
       return;
@@ -27,13 +43,16 @@ const Recharge = () => {
 
     toast({
       title: "充值成功！",
-      description: "积分已到账，快去使用吧～",
+      description: `已充值${creditAmount}积分，快去使用吧～`,
     });
     
     setTimeout(() => {
       navigate("/profile");
     }, 1500);
   };
+
+  const creditAmount = parseInt(credits) || 0;
+  const totalPrice = creditAmount;
 
   return (
     <div className="min-h-screen bg-muted/30">
@@ -60,67 +79,58 @@ const Recharge = () => {
         </Card>
       </div>
 
-      {/* Packages */}
-      <div className="px-4 py-6 space-y-3">
-        {packages.map((pkg) => {
-          const Icon = pkg.icon;
-          const isSelected = selectedPackage === pkg.id;
+      {/* Input Section */}
+      <div className="px-4 py-6">
+        <Card className="p-6 shadow-lg">
+          <Label htmlFor="credits" className="text-sm font-medium mb-3 block">
+            充值积分数量
+          </Label>
+          <div className="relative mb-4">
+            <Coins className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+            <Input
+              id="credits"
+              type="number"
+              value={credits}
+              onChange={(e) => setCredits(e.target.value)}
+              className="pl-12 pr-16 h-14 text-lg rounded-xl"
+              placeholder="请输入积分数量"
+              min="1"
+              max="10000"
+            />
+            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground">
+              积分
+            </span>
+          </div>
           
-          return (
-            <Card
-              key={pkg.id}
-              onClick={() => setSelectedPackage(pkg.id)}
-              className={`relative overflow-hidden transition-all cursor-pointer ${
-                isSelected
-                  ? "border-primary border-2 shadow-lg scale-[1.02]"
-                  : "border-border hover:border-primary/50"
-              }`}
-            >
-              {pkg.popular && (
-                <div className="absolute top-0 right-0 bg-primary text-white text-xs px-3 py-1 rounded-bl-lg font-medium">
-                  最划算
-                </div>
-              )}
-              
-              <div className="p-5 flex items-center gap-4">
-                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${
-                  isSelected ? "bg-primary/10" : "bg-muted"
-                }`}>
-                  <Icon className={`w-7 h-7 ${isSelected ? "text-primary" : "text-muted-foreground"}`} />
-                </div>
-                
-                <div className="flex-1">
-                  <div className="flex items-baseline gap-2 mb-1">
-                    <span className="text-2xl font-bold">{pkg.credits}</span>
-                    <span className="text-sm text-muted-foreground">积分</span>
-                    {pkg.bonus > 0 && (
-                      <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">
-                        +{pkg.bonus} 赠送
-                      </span>
-                    )}
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    实际到账 {pkg.credits + pkg.bonus} 积分
-                  </div>
-                </div>
-                
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-primary">{pkg.price}</div>
-                </div>
-              </div>
-            </Card>
-          );
-        })}
+          <div className="bg-muted/50 rounded-lg p-4 space-y-2">
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">兑换比例</span>
+              <span className="font-medium">1积分 = 1元</span>
+            </div>
+            <div className="h-px bg-border" />
+            <div className="flex justify-between text-base">
+              <span className="text-muted-foreground">应付金额</span>
+              <span className="text-2xl font-bold text-primary">
+                ¥{totalPrice}
+              </span>
+            </div>
+          </div>
+
+          <div className="mt-4 text-xs text-muted-foreground space-y-1">
+            <div>• 最低充值1积分，最高单次充值10000积分</div>
+            <div>• 充值成功后积分立即到账</div>
+          </div>
+        </Card>
       </div>
 
       {/* Bottom Button */}
       <div className="fixed bottom-0 left-0 right-0 p-4 bg-background border-t border-border">
         <Button
           onClick={handleRecharge}
-          disabled={!selectedPackage}
+          disabled={!credits || creditAmount <= 0}
           className="w-full h-14 rounded-full text-base font-bold shadow-lg"
         >
-          立即充值
+          {creditAmount > 0 ? `立即充值 ¥${totalPrice}` : "立即充值"}
         </Button>
       </div>
     </div>
