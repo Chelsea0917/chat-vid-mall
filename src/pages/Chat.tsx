@@ -6,13 +6,15 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 const Chat = () => {
-  const [messages] = useState([
+  const [messages, setMessages] = useState([
     { id: 1, type: "ai", text: "你好！我是你的AI陪伴助手，有什么可以帮助你的吗？😊" },
     { id: 2, type: "user", text: "最近有什么新品推荐吗？" },
     { id: 3, type: "ai", text: "当然有！最近上新了几款智能设备，比如AI智能音箱和无线耳机Pro，都很受欢迎。需要我详细介绍吗？" },
   ]);
+  const [inputValue, setInputValue] = useState("");
   const [audioLevel, setAudioLevel] = useState(0);
   const animationFrameRef = useRef<number>();
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Simulate smooth audio level changes for demo
@@ -44,6 +46,31 @@ const Chat = () => {
 
   const getVoiceScale = () => {
     return 1 + (audioLevel / 100) * 0.5; // Scale from 1 to 1.5 based on audio level
+  };
+
+  const handleSendMessage = () => {
+    if (!inputValue.trim()) return;
+    
+    const newMessage = {
+      id: messages.length + 1,
+      type: "user",
+      text: inputValue.trim(),
+    };
+    
+    setMessages([...messages, newMessage]);
+    setInputValue("");
+    
+    // Auto scroll to bottom
+    setTimeout(() => {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
   };
 
   return (
@@ -88,6 +115,7 @@ const Chat = () => {
                 </div>
               </div>
             ))}
+            <div ref={messagesEndRef} />
           </div>
 
           {/* Input Area */}
@@ -96,8 +124,15 @@ const Chat = () => {
               <Input
                 placeholder="输入消息..."
                 className="flex-1 rounded-full bg-muted/50 border-0"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyPress={handleKeyPress}
               />
-              <Button size="icon" className="bg-primary hover:bg-primary/90 rounded-full">
+              <Button 
+                size="icon" 
+                className="bg-primary hover:bg-primary/90 rounded-full"
+                onClick={handleSendMessage}
+              >
                 <Send className="w-5 h-5" />
               </Button>
             </div>
