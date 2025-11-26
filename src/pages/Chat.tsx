@@ -71,7 +71,7 @@ const Chat = () => {
         {/* Text Chat Mode */}
         <TabsContent value="text" className="flex-1 flex flex-col !mt-0 data-[state=active]:flex">
           {/* Messages */}
-          <div className="overflow-y-auto px-4 pt-4 pb-4 space-y-4">
+          <div className="overflow-y-auto px-4 pt-0 pb-4 space-y-4">
             {messages.map((msg) => (
               <div
                 key={msg.id}
