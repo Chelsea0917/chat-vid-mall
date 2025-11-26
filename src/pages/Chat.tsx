@@ -42,9 +42,8 @@ const Chat = () => {
     };
   }, []);
 
-  const getVoiceScale = (index: number) => {
-    const baseScale = 1 + (audioLevel / 100) * 0.3;
-    return baseScale + (index * 0.15);
+  const getVoiceScale = () => {
+    return 1 + (audioLevel / 100) * 0.5; // Scale from 1 to 1.5 based on audio level
   };
 
   return (
@@ -59,34 +58,20 @@ const Chat = () => {
 
         {/* Voice Chat Mode */}
         <TabsContent value="voice" className="flex-1 flex items-center justify-center m-0 data-[state=active]:flex">
-          <div className="relative flex items-center justify-center w-64 h-64">
-            {/* Core circle */}
+          <div className="relative flex items-center justify-center">
             <div 
-              className="absolute w-24 h-24 rounded-full bg-gradient-primary transition-all duration-300 ease-out"
+              className="w-32 h-32 rounded-full bg-gradient-primary transition-all duration-300 ease-out"
               style={{ 
-                transform: `scale(${getVoiceScale(0)})`,
-                opacity: 0.9
+                transform: `scale(${getVoiceScale()})`,
               }}
             />
-            
-            {/* Ripple layers */}
-            {[1, 2, 3, 4].map((index) => (
-              <div
-                key={index}
-                className="absolute w-24 h-24 rounded-full bg-gradient-primary transition-all duration-500 ease-out"
-                style={{
-                  transform: `scale(${getVoiceScale(index)})`,
-                  opacity: Math.max(0, 0.4 - index * 0.08)
-                }}
-              />
-            ))}
           </div>
         </TabsContent>
 
         {/* Text Chat Mode */}
-        <TabsContent value="text" className="flex-1 flex flex-col m-0 data-[state=active]:flex">
+        <TabsContent value="text" className="flex-1 flex flex-col m-0 mt-0 data-[state=active]:flex">
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 flex flex-col justify-start items-stretch">
+          <div className="flex-1 overflow-y-auto px-4 pt-2 pb-4 space-y-4 flex flex-col">
             {messages.map((msg) => (
               <div
                 key={msg.id}
