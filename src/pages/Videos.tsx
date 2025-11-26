@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { Heart, Coins } from "lucide-react";
+import { Heart } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import { cn } from "@/lib/utils";
+import coinIcon from "@/assets/coin-icon.png";
 
 const Videos = () => {
   const [liked, setLiked] = useState(false);
@@ -63,7 +64,7 @@ const Videos = () => {
                 : "text-white/60"
             )}
           >
-            <Coins className="w-4 h-4 text-[hsl(var(--coin-gold))]" />
+            <img src={coinIcon} alt="金币" className="w-4 h-4" />
             赚金币
           </button>
         </div>
@@ -79,7 +80,7 @@ const Videos = () => {
 
       {/* Ad Progress Indicator (only for earn tab) */}
       {activeTab === "earn" && (
-        <div className="absolute top-20 right-4 z-30">
+        <div className="absolute top-20 left-4 z-30">
           <div className="relative w-12 h-12">
             {/* Progress Circle */}
             <svg className="w-12 h-12 transform -rotate-90">
@@ -105,7 +106,7 @@ const Videos = () => {
             </svg>
             {/* Coin Icon */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <Coins className="w-6 h-6 text-[hsl(var(--coin-gold))]" />
+              <img src={coinIcon} alt="金币" className="w-6 h-6" />
             </div>
           </div>
         </div>
@@ -115,8 +116,8 @@ const Videos = () => {
       {showReward && (
         <div className="absolute top-32 left-1/2 -translate-x-1/2 z-40 animate-fade-in">
           <div className="bg-black/70 backdrop-blur-sm rounded-full px-6 py-3 flex items-center gap-2">
-            <Coins className="w-5 h-5 text-[hsl(var(--coin-gold))]" />
-            <span className="text-white font-medium">+{earnedCoins}金币</span>
+            <img src={coinIcon} alt="金币" className="w-5 h-5" />
+            <span className="text-[hsl(var(--coin-gold))] font-medium">+{earnedCoins}金币</span>
           </div>
         </div>
       )}
