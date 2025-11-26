@@ -57,7 +57,7 @@ const Chat = () => {
         </div>
 
         {/* Voice Chat Mode */}
-        <TabsContent value="voice" className="flex-1 flex items-center justify-center m-0 data-[state=active]:flex">
+        <TabsContent value="voice" className="flex-1 hidden items-center justify-center m-0 data-[state=active]:flex">
           <div className="relative flex items-center justify-center">
             <div 
               className="w-32 h-32 rounded-full bg-gradient-primary transition-all duration-300 ease-out"
@@ -69,9 +69,9 @@ const Chat = () => {
         </TabsContent>
 
         {/* Text Chat Mode */}
-        <TabsContent value="text" className="flex-1 flex flex-col !mt-0 data-[state=active]:flex">
+        <TabsContent value="text" className="flex-1 hidden flex-col !mt-0 data-[state=active]:flex">
           {/* Messages */}
-          <div className="overflow-y-auto px-4 pt-0 pb-4 space-y-4">
+          <div className="flex-1 overflow-y-auto px-4 pt-4 pb-4 space-y-4">
             {messages.map((msg) => (
               <div
                 key={msg.id}
