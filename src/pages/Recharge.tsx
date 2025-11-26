@@ -89,13 +89,17 @@ const Recharge = () => {
             <Coins className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <Input
               id="credits"
-              type="number"
+              type="text"
               value={credits}
-              onChange={(e) => setCredits(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value;
+                // Only allow digits
+                if (value === "" || /^\d+$/.test(value)) {
+                  setCredits(value);
+                }
+              }}
               className="pl-12 pr-16 h-14 text-lg rounded-xl"
               placeholder="请输入积分数量"
-              min="1"
-              max="10000"
             />
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground">
               积分
