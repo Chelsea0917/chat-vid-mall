@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Heart } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import { cn } from "@/lib/utils";
-import coinIcon from "@/assets/coin-icon.png";
+import { CoinIcon } from "@/components/CurrencyIcons";
 
 const Videos = () => {
   const [liked, setLiked] = useState(false);
@@ -105,7 +105,7 @@ const Videos = () => {
             </svg>
             {/* Coin Icon */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <img src={coinIcon} alt="金币" className="w-6 h-6" />
+              <CoinIcon className="w-6 h-6" />
             </div>
           </div>
         </div>
@@ -115,7 +115,7 @@ const Videos = () => {
       {showReward && (
         <div className="absolute top-32 left-1/2 -translate-x-1/2 z-40 animate-fade-in">
           <div className="bg-black/70 backdrop-blur-sm rounded-full px-6 py-3 flex items-center gap-2">
-            <img src={coinIcon} alt="金币" className="w-5 h-5" />
+            <CoinIcon className="w-5 h-5" />
             <span className="text-[hsl(var(--coin-gold))] font-medium">+{earnedCoins}金币</span>
           </div>
         </div>

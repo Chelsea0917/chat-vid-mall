@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import BottomNav from "@/components/BottomNav";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import coinIcon from "@/assets/coin-icon.png";
-import diamondIcon from "@/assets/diamond-icon.png";
+import { CoinIcon, DiamondIcon } from "@/components/CurrencyIcons";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -15,8 +14,8 @@ const Profile = () => {
   ];
 
   const stats = [
-    { label: "钻石", value: "2,580", iconSrc: diamondIcon },
-    { label: "金币", value: "1,268", iconSrc: coinIcon },
+    { label: "钻石", value: "2,580", type: "diamond" as const },
+    { label: "金币", value: "1,268", type: "coin" as const },
   ];
 
   return (
@@ -38,7 +37,11 @@ const Profile = () => {
             return (
               <button key={stat.label} className="flex-1 bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-3 text-white">
                 <div className="flex items-center justify-center gap-2 mb-1">
-                  <img src={stat.iconSrc} alt={stat.label} className="w-5 h-5" />
+                  {stat.type === "diamond" ? (
+                    <DiamondIcon className="w-5 h-5" />
+                  ) : (
+                    <CoinIcon className="w-5 h-5" />
+                  )}
                   <div className="text-xl font-bold">{stat.value}</div>
                 </div>
                 <div className="text-xs text-white/80">{stat.label}</div>
