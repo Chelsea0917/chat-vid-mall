@@ -25,16 +25,26 @@ const AccountSettings = () => {
   };
 
   const handleAvatarClick = () => {
-    toast({
-      title: "上传头像",
-      description: "此功能正在开发中...",
-    });
+    // Create file input
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          setAvatarUrl(event.target?.result as string);
+          toast({
+            title: "头像已更新",
+            description: "你的新头像已上传成功",
+          });
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+    input.click();
   };
-
-  const avatarOptions = [
-    "😀", "😎", "🥳", "🤓", "😺", "🐶", "🐼", "🦊",
-    "🌟", "💎", "🎮", "🎨", "🎭", "🎪", "🎯", "🎲"
-  ];
 
   return (
     <div className="min-h-screen bg-muted/30">
@@ -71,26 +81,8 @@ const AccountSettings = () => {
               </button>
             </div>
             <div className="flex-1 text-sm text-muted-foreground">
-              点击相机图标上传新头像<br />
-              或从下方选择默认头像
+              点击相机图标上传新头像
             </div>
-          </div>
-
-          {/* Avatar Options */}
-          <div className="grid grid-cols-8 gap-2">
-            {avatarOptions.map((emoji, index) => (
-              <button
-                key={index}
-                onClick={() => setAvatarUrl(emoji)}
-                className={`aspect-square rounded-xl flex items-center justify-center text-2xl transition-all ${
-                  avatarUrl === emoji
-                    ? "bg-primary/20 scale-110 shadow-md"
-                    : "bg-muted hover:bg-muted/80"
-                }`}
-              >
-                {emoji}
-              </button>
-            ))}
           </div>
         </Card>
 

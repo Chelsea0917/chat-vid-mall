@@ -10,10 +10,10 @@ const Recharge = () => {
   const [selectedPackage, setSelectedPackage] = useState<number | null>(null);
 
   const packages = [
-    { id: 1, coins: 100, price: "¥6", bonus: 0, icon: Coins, popular: false },
-    { id: 2, coins: 500, price: "¥30", bonus: 50, icon: Zap, popular: true },
-    { id: 3, coins: 1000, price: "¥60", bonus: 200, icon: Gift, popular: false },
-    { id: 4, coins: 5000, price: "¥280", bonus: 1500, icon: Gift, popular: false },
+    { id: 1, credits: 10, price: "¥10", bonus: 0, icon: Coins, popular: false },
+    { id: 2, credits: 50, price: "¥50", bonus: 5, icon: Zap, popular: true },
+    { id: 3, credits: 100, price: "¥100", bonus: 20, icon: Gift, popular: false },
+    { id: 4, credits: 500, price: "¥500", bonus: 150, icon: Gift, popular: false },
   ];
 
   const handleRecharge = () => {
@@ -27,7 +27,7 @@ const Recharge = () => {
 
     toast({
       title: "充值成功！",
-      description: "金币已到账，快去使用吧～",
+      description: "积分已到账，快去使用吧～",
     });
     
     setTimeout(() => {
@@ -51,10 +51,10 @@ const Recharge = () => {
 
         <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
           <div className="p-6 text-center">
-            <div className="text-sm text-white/80 mb-2">当前金币</div>
+            <div className="text-sm text-white/80 mb-2">当前积分</div>
             <div className="flex items-center justify-center gap-2">
               <Coins className="w-6 h-6" />
-              <span className="text-3xl font-bold">1,268</span>
+              <span className="text-3xl font-bold">268</span>
             </div>
           </div>
         </Card>
@@ -91,8 +91,8 @@ const Recharge = () => {
                 
                 <div className="flex-1">
                   <div className="flex items-baseline gap-2 mb-1">
-                    <span className="text-2xl font-bold">{pkg.coins}</span>
-                    <span className="text-sm text-muted-foreground">金币</span>
+                    <span className="text-2xl font-bold">{pkg.credits}</span>
+                    <span className="text-sm text-muted-foreground">积分</span>
                     {pkg.bonus > 0 && (
                       <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">
                         +{pkg.bonus} 赠送
@@ -100,7 +100,7 @@ const Recharge = () => {
                     )}
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    实际到账 {pkg.coins + pkg.bonus} 金币
+                    实际到账 {pkg.credits + pkg.bonus} 积分
                   </div>
                 </div>
                 
@@ -111,20 +111,6 @@ const Recharge = () => {
             </Card>
           );
         })}
-      </div>
-
-      {/* Payment Methods */}
-      <div className="px-4 py-4">
-        <div className="text-sm text-muted-foreground mb-3">支付方式</div>
-        <Card className="p-4 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-xl">
-            💳
-          </div>
-          <div className="flex-1">
-            <div className="font-medium">微信支付</div>
-            <div className="text-xs text-muted-foreground">安全快捷</div>
-          </div>
-        </Card>
       </div>
 
       {/* Bottom Button */}
