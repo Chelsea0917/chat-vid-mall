@@ -15,9 +15,21 @@ const Chat = () => {
   const animationFrameRef = useRef<number>();
 
   useEffect(() => {
-    // Simulate audio level changes for demo
+    // Simulate smooth audio level changes for demo
+    let targetLevel = 50;
+    
     const simulateAudioLevel = () => {
-      setAudioLevel(Math.random() * 100);
+      // Smooth transition to target level
+      setAudioLevel(prev => {
+        const diff = targetLevel - prev;
+        return prev + diff * 0.1;
+      });
+      
+      // Randomly change target level
+      if (Math.random() < 0.05) {
+        targetLevel = Math.random() * 100;
+      }
+      
       animationFrameRef.current = requestAnimationFrame(simulateAudioLevel);
     };
     
@@ -30,8 +42,9 @@ const Chat = () => {
     };
   }, []);
 
-  const getVoiceScale = () => {
-    return 1 + (audioLevel / 100) * 0.5; // Scale from 1 to 1.5 based on audio level
+  const getVoiceScale = (index: number) => {
+    const baseScale = 1 + (audioLevel / 100) * 0.3;
+    return baseScale + (index * 0.15);
   };
 
   return (
@@ -46,26 +59,34 @@ const Chat = () => {
 
         {/* Voice Chat Mode */}
         <TabsContent value="voice" className="flex-1 flex items-center justify-center m-0 data-[state=active]:flex">
-          <div className="relative flex items-center justify-center">
+          <div className="relative flex items-center justify-center w-64 h-64">
+            {/* Core circle */}
             <div 
-              className="w-32 h-32 rounded-full bg-gradient-primary transition-transform duration-100"
-              style={{ transform: `scale(${getVoiceScale()})` }}
+              className="absolute w-24 h-24 rounded-full bg-gradient-primary transition-all duration-300 ease-out"
+              style={{ 
+                transform: `scale(${getVoiceScale(0)})`,
+                opacity: 0.9
+              }}
             />
-            <div 
-              className="absolute inset-0 w-32 h-32 rounded-full bg-gradient-primary opacity-30"
-              style={{ transform: `scale(${getVoiceScale() * 1.2})` }}
-            />
-            <div 
-              className="absolute inset-0 w-32 h-32 rounded-full bg-gradient-primary opacity-20"
-              style={{ transform: `scale(${getVoiceScale() * 1.4})` }}
-            />
+            
+            {/* Ripple layers */}
+            {[1, 2, 3, 4].map((index) => (
+              <div
+                key={index}
+                className="absolute w-24 h-24 rounded-full bg-gradient-primary transition-all duration-500 ease-out"
+                style={{
+                  transform: `scale(${getVoiceScale(index)})`,
+                  opacity: Math.max(0, 0.4 - index * 0.08)
+                }}
+              />
+            ))}
           </div>
         </TabsContent>
 
         {/* Text Chat Mode */}
         <TabsContent value="text" className="flex-1 flex flex-col m-0 data-[state=active]:flex">
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 flex flex-col">
+          <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 flex flex-col justify-start items-stretch">
             {messages.map((msg) => (
               <div
                 key={msg.id}
