@@ -8,6 +8,8 @@ import Videos from "./pages/Videos";
 import Chat from "./pages/Chat";
 import Messages from "./pages/Messages";
 import Profile from "./pages/Profile";
+import Recharge from "./pages/Recharge";
+import AccountSettings from "./pages/AccountSettings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +26,8 @@ const App = () => (
           <Route path="/chat" element={<Chat />} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/recharge" element={<Recharge />} />
+          <Route path="/account-settings" element={<AccountSettings />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

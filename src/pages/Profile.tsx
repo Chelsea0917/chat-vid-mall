@@ -1,12 +1,15 @@
 import { Settings, ChevronRight, Coins, Award, CreditCard } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import BottomNav from "@/components/BottomNav";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
 const Profile = () => {
+  const navigate = useNavigate();
+  
   const menuItems = [
-    { icon: CreditCard, label: "积分充值", badge: "" },
-    { icon: Settings, label: "账号设置", badge: "" },
+    { icon: CreditCard, label: "积分充值", badge: "", path: "/recharge" },
+    { icon: Settings, label: "账号设置", badge: "", path: "/account-settings" },
   ];
 
   const stats = [
@@ -53,6 +56,7 @@ const Profile = () => {
               return (
                 <button
                   key={index}
+                  onClick={() => navigate(item.path)}
                   className="w-full px-4 py-4 flex items-center gap-4 hover:bg-muted/50 transition-colors"
                 >
                   <Icon className="w-5 h-5 text-primary" />
