@@ -16,15 +16,17 @@ const Videos = () => {
     if (activeTab === "earn" && adProgress < 100) {
       const timer = setInterval(() => {
         setAdProgress((prev) => {
-          if (prev >= 100) {
-            clearInterval(timer);
+          const newProgress = prev + 1;
+          if (newProgress >= 100) {
             // 显示奖励提示
-            setShowReward(true);
-            setEarnedCoins(2);
-            setTimeout(() => setShowReward(false), 3500);
+            setTimeout(() => {
+              setShowReward(true);
+              setEarnedCoins(2);
+              setTimeout(() => setShowReward(false), 3500);
+            }, 100);
             return 100;
           }
-          return prev + 1;
+          return newProgress;
         });
       }, 100); // 10秒完成 (100 * 100ms = 10s)
 
@@ -36,6 +38,7 @@ const Videos = () => {
   useEffect(() => {
     if (activeTab === "earn") {
       setAdProgress(0);
+      setShowReward(false);
     }
   }, [activeTab]);
 
