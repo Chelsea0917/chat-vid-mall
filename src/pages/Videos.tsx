@@ -21,7 +21,7 @@ const Videos = () => {
             // 显示奖励提示
             setShowReward(true);
             setEarnedCoins(2);
-            setTimeout(() => setShowReward(false), 2000);
+            setTimeout(() => setShowReward(false), 3500);
             return 100;
           }
           return prev + 1;
@@ -113,10 +113,10 @@ const Videos = () => {
 
       {/* Reward Notification */}
       {showReward && (
-        <div className="absolute top-32 left-1/2 -translate-x-1/2 z-40 animate-fade-in">
-          <div className="bg-black/70 backdrop-blur-sm rounded-full px-6 py-3 flex items-center gap-2">
-            <CoinIcon className="w-5 h-5" />
-            <span className="text-[hsl(var(--coin-gold))] font-medium">+{earnedCoins}金币</span>
+        <div className="fixed top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 animate-in fade-in zoom-in duration-300">
+          <div className="bg-black/90 backdrop-blur-md rounded-2xl px-8 py-4 flex items-center gap-3 shadow-2xl border-2 border-[hsl(var(--coin-gold))]/30">
+            <CoinIcon className="w-8 h-8 animate-pulse" />
+            <span className="text-[hsl(var(--coin-gold))] font-bold text-xl">+{earnedCoins} 金币</span>
           </div>
         </div>
       )}
