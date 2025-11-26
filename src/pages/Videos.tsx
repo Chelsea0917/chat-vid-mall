@@ -58,13 +58,12 @@ const Videos = () => {
           <button
             onClick={() => setActiveTab("earn")}
             className={cn(
-              "text-lg font-medium transition-all flex items-center gap-1",
+              "text-lg font-medium transition-all",
               activeTab === "earn"
                 ? "text-white scale-110"
                 : "text-white/60"
             )}
           >
-            <img src={coinIcon} alt="金币" className="w-4 h-4" />
             赚金币
           </button>
         </div>
