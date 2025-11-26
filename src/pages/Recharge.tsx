@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { ArrowLeft, Gem } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
+import diamondIcon from "@/assets/diamond-icon.png";
 
 const Recharge = () => {
   const navigate = useNavigate();
@@ -72,7 +73,7 @@ const Recharge = () => {
           <div className="p-6 text-center">
             <div className="text-sm text-white/80 mb-2">当前钻石</div>
             <div className="flex items-center justify-center gap-2">
-              <Gem className="w-6 h-6 text-[hsl(var(--diamond-blue))]" />
+              <img src={diamondIcon} alt="钻石" className="w-6 h-6" />
               <span className="text-3xl font-bold">268</span>
             </div>
           </div>
@@ -86,7 +87,7 @@ const Recharge = () => {
             充值钻石数量
           </Label>
           <div className="relative mb-4">
-            <Gem className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[hsl(var(--diamond-blue))]" />
+            <img src={diamondIcon} alt="钻石" className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
             <Input
               id="credits"
               type="text"

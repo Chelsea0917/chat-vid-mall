@@ -1,8 +1,10 @@
-import { Settings, ChevronRight, Coins, Gem, CreditCard } from "lucide-react";
+import { Settings, ChevronRight, CreditCard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import BottomNav from "@/components/BottomNav";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import coinIcon from "@/assets/coin-icon.png";
+import diamondIcon from "@/assets/diamond-icon.png";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -13,8 +15,8 @@ const Profile = () => {
   ];
 
   const stats = [
-    { label: "钻石", value: "2,580", icon: Gem, color: "text-[hsl(var(--diamond-blue))]" },
-    { label: "金币", value: "1,268", icon: Coins, color: "text-[hsl(var(--coin-gold))]" },
+    { label: "钻石", value: "2,580", iconSrc: diamondIcon },
+    { label: "金币", value: "1,268", iconSrc: coinIcon },
   ];
 
   return (
@@ -33,11 +35,10 @@ const Profile = () => {
 
         <div className="flex justify-around gap-4">
           {stats.map((stat) => {
-            const Icon = stat.icon;
             return (
               <button key={stat.label} className="flex-1 bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-3 text-white">
                 <div className="flex items-center justify-center gap-2 mb-1">
-                  <Icon className={`w-5 h-5 ${stat.color}`} />
+                  <img src={stat.iconSrc} alt={stat.label} className="w-5 h-5" />
                   <div className="text-xl font-bold">{stat.value}</div>
                 </div>
                 <div className="text-xs text-white/80">{stat.label}</div>
