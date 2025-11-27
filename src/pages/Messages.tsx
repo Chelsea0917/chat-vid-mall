@@ -151,7 +151,7 @@ const Messages = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-secondary/10 pb-20">
+    <div className="h-screen overflow-hidden bg-gradient-to-br from-primary/10 via-background to-secondary/10 flex flex-col">
       {/* Tutorial Guide - 新手引导 */}
       {showTutorial && (
         <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4">
@@ -372,9 +372,9 @@ const Messages = () => {
       </AlertDialog>
 
       {/* Header */}
-      <div className="sticky top-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border/40 pt-safe">
-        <div className="px-4 py-3 flex items-center justify-between">
-          <h1 className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+      <div className="flex-shrink-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border/40 pt-safe">
+        <div className="px-4 py-2 flex items-center justify-between">
+          <h1 className="text-lg font-bold bg-gradient-primary bg-clip-text text-transparent">
             探索
           </h1>
           <div className="flex items-center gap-1 bg-primary/10 px-3 py-1 rounded-full">
@@ -385,7 +385,7 @@ const Messages = () => {
       </div>
 
       {/* Card Stack */}
-      <div className="flex items-center justify-center px-4 py-8 min-h-[calc(100vh-200px)]">
+      <div className="flex-1 flex items-center justify-center px-4 pb-24 overflow-hidden">
         {currentIndex >= cards.length ? (
           <div className="text-center">
             <div className="text-6xl mb-4">🎉</div>
@@ -397,10 +397,10 @@ const Messages = () => {
             </p>
           </div>
         ) : (
-          <div className="relative w-full max-w-sm">
+          <div className="relative w-full max-w-sm h-full flex flex-col justify-center">
             {/* Card */}
             <div 
-              className="relative w-full aspect-[3/4] animate-scale-in cursor-grab active:cursor-grabbing"
+              className="relative w-full max-h-[55vh] aspect-[3/4] animate-scale-in cursor-grab active:cursor-grabbing"
               style={getCardTransform()}
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
@@ -441,7 +441,7 @@ const Messages = () => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex items-center justify-center gap-6 mt-8">
+            <div className="flex items-center justify-center gap-6 mt-4">
               <Button
                 size="icon"
                 onClick={handlePass}
@@ -460,7 +460,7 @@ const Messages = () => {
             </div>
 
             {/* Progress Indicator */}
-            <div className="flex justify-center gap-2 mt-6">
+            <div className="flex justify-center gap-2 mt-3">
               {cards.map((_, index) => (
                 <div
                   key={index}
