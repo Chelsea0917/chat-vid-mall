@@ -89,24 +89,9 @@ const Chat = () => {
         <TabsContent value="voice" className="flex-1 hidden flex-col m-0 data-[state=active]:flex">
           {/* Reserved space at top */}
           <div className="flex-1 flex flex-col">
-            {/* Voice waveform and transcription area */}
+            {/* Real-time transcription area */}
             {isRecording && (
-              <div className="flex-1 flex flex-col items-center justify-center px-6 py-8">
-                {/* Voice waveform */}
-                <div className="flex items-end justify-center gap-1 mb-8 h-24">
-                  {[...Array(20)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="w-1 bg-gradient-primary rounded-full transition-all duration-150"
-                      style={{
-                        height: `${20 + Math.sin((audioLevel + i * 10) / 10) * 40}%`,
-                        opacity: 0.7 + Math.random() * 0.3,
-                      }}
-                    />
-                  ))}
-                </div>
-                
-                {/* Real-time transcription display */}
+              <div className="flex-1 flex items-center justify-center px-6">
                 <div className="w-full max-w-md bg-background/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-border/50">
                   <p className="text-sm text-muted-foreground mb-2">实时转录</p>
                   <p className="text-base leading-relaxed">
@@ -125,16 +110,34 @@ const Chat = () => {
             )}
           </div>
           
-          {/* Start chat button at bottom */}
-          <div className="p-6 pb-24">
-            <Button 
-              size="lg"
-              className="w-full rounded-full h-14 font-bold"
-              onClick={() => setIsRecording(!isRecording)}
-            >
-              <Mic className="w-5 h-5 mr-2" />
-              {isRecording ? "停止聊天" : "开始聊天"}
-            </Button>
+          {/* Start chat button with horizontal waveform at bottom */}
+          <div className="p-6 pb-24 flex flex-col items-center gap-4">
+            <div className="flex items-center gap-3">
+              <Button 
+                size="default"
+                className="rounded-full h-11 px-6"
+                onClick={() => setIsRecording(!isRecording)}
+              >
+                <Mic className="w-4 h-4 mr-2" />
+                {isRecording ? "停止" : "开始"}
+              </Button>
+              
+              {/* Horizontal voice waveform next to button */}
+              {isRecording && (
+                <div className="flex items-center gap-0.5 h-11">
+                  {[...Array(12)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="w-0.5 bg-gradient-primary rounded-full transition-all duration-150"
+                      style={{
+                        height: `${8 + Math.sin((audioLevel + i * 15) / 10) * 12}px`,
+                        opacity: 0.6 + Math.random() * 0.4,
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </TabsContent>
 
