@@ -80,6 +80,7 @@ const Profile = () => {
         {/* Logout Button */}
         <Button
           variant="outline"
+          onClick={() => navigate("/login")}
           className="w-full mt-6 rounded-full h-12 font-medium"
         >
           退出登录
