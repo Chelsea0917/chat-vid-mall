@@ -28,13 +28,17 @@ const BottomNav = () => {
                 className="relative flex flex-col items-center justify-center -mt-6"
               >
                 <div className="w-16 h-20 bg-gradient-primary flex items-center justify-center shadow-lg shadow-primary/30 hover:scale-110 transition-transform relative"
-                  style={{ borderRadius: '50% 50% 50% 50% / 60% 60% 40% 40%' }}
+                  style={{ borderRadius: '45% 45% 50% 50% / 55% 55% 45% 45%' }}
                 >
+                  {/* Top decoration */}
+                  <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-3 bg-primary/80 rounded-t-full" />
                   {/* Eyes */}
-                  <div className="absolute top-6 left-4 w-2 h-2 bg-white rounded-full" />
-                  <div className="absolute top-6 right-4 w-2 h-2 bg-white rounded-full" />
+                  <div className="absolute top-5 left-1/2 -translate-x-1/2 flex gap-3">
+                    <div className="w-1.5 h-1.5 bg-foreground/70 rounded-full" />
+                    <div className="w-1.5 h-1.5 bg-foreground/70 rounded-full" />
+                  </div>
                   {/* Mouth */}
-                  <div className="absolute bottom-5 left-1/2 -translate-x-1/2 w-6 h-3 border-b-2 border-white rounded-b-full" />
+                  <div className="absolute top-9 left-1/2 -translate-x-1/2 w-4 h-2 border-b-[1.5px] border-foreground/60 rounded-b-full" />
                 </div>
               </Link>
             );
