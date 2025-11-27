@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { X, Heart, Info, Coins, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, Heart, Info, ChevronLeft, ChevronRight } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { CoinIcon } from "@/components/CurrencyIcons";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -277,7 +278,7 @@ const Messages = () => {
                   
                   <div className="bg-gradient-primary/10 rounded-2xl p-6 mb-4">
                     <div className="flex items-center justify-center gap-2 mb-2">
-                      <Coins className="w-8 h-8 text-primary" />
+                      <CoinIcon className="w-8 h-8" />
                       <span className="text-4xl font-bold text-primary">+10</span>
                     </div>
                     <p className="text-sm text-muted-foreground">
@@ -356,7 +357,7 @@ const Messages = () => {
           </button>
           <AlertDialogHeader>
             <AlertDialogTitle className="flex items-center gap-2">
-              <Coins className="w-5 h-5 text-primary" />
+              <CoinIcon className="w-5 h-5" />
               金币不足
             </AlertDialogTitle>
             <AlertDialogDescription className="text-base">
@@ -378,7 +379,7 @@ const Messages = () => {
             探索
           </h1>
           <div className="flex items-center gap-1 bg-primary/10 px-3 py-1 rounded-full">
-            <Coins className="w-4 h-4 text-primary" />
+            <CoinIcon className="w-4 h-4" />
             <span className="text-sm font-bold text-primary">{goldCoins}</span>
           </div>
         </div>

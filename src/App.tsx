@@ -10,6 +10,7 @@ import Messages from "./pages/Messages";
 import Profile from "./pages/Profile";
 import Recharge from "./pages/Recharge";
 import AccountSettings from "./pages/AccountSettings";
+import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/profile" element={<Profile />} />
           <Route path="/recharge" element={<Recharge />} />
           <Route path="/account-settings" element={<AccountSettings />} />
+          <Route path="/login" element={<Login />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
