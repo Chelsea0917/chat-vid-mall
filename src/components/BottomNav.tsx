@@ -27,14 +27,18 @@ const BottomNav = () => {
                 to={item.path}
                 className="relative flex flex-col items-center justify-center -mt-6"
               >
-                <div className="w-14 h-16 bg-gradient-primary shadow-lg shadow-primary/30 hover:scale-110 transition-transform relative"
-                  style={{ borderRadius: '45% 45% 48% 48% / 60% 60% 42% 42%' }}
+                <div
+                  className="relative w-16 h-20 bg-gradient-primary shadow-lg shadow-primary/30 hover:scale-110 transition-transform"
+                  style={{ borderRadius: "52% 52% 48% 48% / 62% 62% 45% 45%" }}
                 >
-                  {/* Top decoration - small antenna */}
-                  <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-1.5 h-2.5 bg-primary rounded-t-full" />
-                  {/* Bottom feet */}
-                  <div className="absolute -bottom-0.5 left-3 w-2.5 h-2 bg-primary rounded-b-full" />
-                  <div className="absolute -bottom-0.5 right-3 w-2.5 h-2 bg-primary rounded-b-full" />
+                  {/* Top knob */}
+                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-3 bg-primary rounded-t-full" />
+                  {/* Side arms */}
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-8 bg-primary rounded-full" />
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-8 bg-primary rounded-full" />
+                  {/* Feet */}
+                  <div className="absolute -bottom-1 left-3 w-3 h-3 bg-primary rounded-b-full" />
+                  <div className="absolute -bottom-1 right-3 w-3 h-3 bg-primary rounded-b-full" />
                 </div>
               </Link>
             );
