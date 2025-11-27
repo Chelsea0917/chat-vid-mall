@@ -38,6 +38,7 @@ const Login = () => {
       {/* Confirm Button */}
       <Button
         onClick={handleLogin}
+        variant="secondary"
         className="w-[280px] h-14 rounded-full text-base font-medium shadow-lg"
       >
         确认授权登录
