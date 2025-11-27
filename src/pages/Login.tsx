@@ -38,7 +38,7 @@ const Login = () => {
       {/* Confirm Button */}
       <Button
         onClick={handleLogin}
-        className="w-[280px] h-14 rounded-full bg-blue-500 hover:bg-blue-600 text-white text-base font-medium shadow-lg"
+        className="w-[280px] h-14 rounded-full text-base font-medium shadow-lg"
       >
         确认授权登录
       </Button>
