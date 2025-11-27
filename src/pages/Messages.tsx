@@ -420,15 +420,6 @@ const Messages = () => {
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
 
-                {/* Info Button */}
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/30"
-                >
-                  <Info className="w-5 h-5" />
-                </Button>
-
                 {/* Card Info */}
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                   <div className="flex items-baseline gap-2 mb-2">
