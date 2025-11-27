@@ -9,12 +9,12 @@ const Profile = () => {
   const navigate = useNavigate();
   
   const menuItems = [
-    { icon: CreditCard, label: "钻石充值", badge: "", path: "/recharge" },
+    { icon: CreditCard, label: "元宝充值", badge: "", path: "/recharge" },
     { icon: Settings, label: "账号设置", badge: "", path: "/account-settings" },
   ];
 
   const stats = [
-    { label: "钻石", value: "2,580", type: "diamond" as const },
+    { label: "元宝", value: "2,580", type: "diamond" as const },
     { label: "金币", value: "1,268", type: "coin" as const },
   ];
 

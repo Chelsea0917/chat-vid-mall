@@ -56,24 +56,61 @@ export const DiamondIcon = ({ className, ...props }: IconProps) => {
       {...props}
     >
       <defs>
-        <linearGradient id="diamondGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="hsl(var(--diamond-white))" />
-          <stop offset="40%" stopColor="hsl(var(--diamond-blue))" />
-          <stop offset="100%" stopColor="hsl(var(--diamond-blue))" />
-        </linearGradient>
+        <radialGradient id="yuanbaoGradient" cx="50%" cy="30%" r="80%">
+          <stop offset="0%" stopColor="hsl(var(--coin-gold-light))" />
+          <stop offset="50%" stopColor="hsl(var(--coin-gold))" />
+          <stop offset="100%" stopColor="hsl(var(--coin-gold))" stopOpacity="0.8" />
+        </radialGradient>
       </defs>
-      {/* Main diamond shape */}
-      <polygon
-        points="8,24 20,8 44,8 56,24 32,56"
-        fill="url(#diamondGradient)"
+      {/* Main yuanbao body - curved trapezoid shape */}
+      <path
+        d="M 16 28 Q 16 22 20 20 L 44 20 Q 48 22 48 28 L 52 42 Q 52 48 48 50 L 16 50 Q 12 48 12 42 Z"
+        fill="url(#yuanbaoGradient)"
+        stroke="hsl(var(--coin-gold))"
+        strokeWidth="1.5"
       />
-      {/* Top facets */}
-      <polygon points="20,8 32,24 44,8" fill="hsl(var(--diamond-white))" fillOpacity={0.8} />
-      <polygon points="8,24 24,24 20,8" fill="hsl(var(--diamond-blue))" fillOpacity={0.7} />
-      <polygon points="56,24 44,8 40,24" fill="hsl(var(--diamond-blue))" fillOpacity={0.7} />
-      {/* Bottom facets */}
-      <polygon points="24,24 32,56 8,24" fill="hsl(var(--diamond-blue))" fillOpacity={0.9} />
-      <polygon points="40,24 56,24 32,56" fill="hsl(var(--diamond-blue))" fillOpacity={0.9} />
+      {/* Top ridge highlight */}
+      <path
+        d="M 20 20 Q 24 18 32 18 Q 40 18 44 20"
+        fill="none"
+        stroke="hsl(var(--coin-gold-light))"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      {/* Center decorative lines */}
+      <ellipse
+        cx="32"
+        cy="35"
+        rx="12"
+        ry="8"
+        fill="none"
+        stroke="hsl(var(--coin-gold))"
+        strokeWidth="1.5"
+        opacity="0.6"
+      />
+      {/* Bottom curve shadow */}
+      <path
+        d="M 16 48 Q 32 52 48 48"
+        fill="none"
+        stroke="hsl(var(--coin-gold))"
+        strokeWidth="2"
+        opacity="0.4"
+      />
+      {/* Side highlights */}
+      <path
+        d="M 14 30 Q 14 35 14 40"
+        stroke="hsl(var(--coin-gold-light))"
+        strokeWidth="1.5"
+        opacity="0.7"
+        strokeLinecap="round"
+      />
+      <path
+        d="M 50 30 Q 50 35 50 40"
+        stroke="hsl(var(--coin-gold))"
+        strokeWidth="1.5"
+        opacity="0.5"
+        strokeLinecap="round"
+      />
     </svg>
   );
 };

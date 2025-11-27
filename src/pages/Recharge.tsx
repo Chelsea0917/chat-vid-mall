@@ -17,8 +17,8 @@ const Recharge = () => {
     
     if (!credits || isNaN(creditAmount) || creditAmount <= 0) {
       toast({
-        title: "请输入有效的钻石数量",
-        description: "钻石数量必须为正整数",
+        title: "请输入有效的元宝数量",
+        description: "元宝数量必须为正整数",
         variant: "destructive",
       });
       return;
@@ -27,7 +27,7 @@ const Recharge = () => {
     if (creditAmount < 1) {
       toast({
         title: "充值金额过低",
-        description: "最低充值1钻石",
+        description: "最低充值1元宝",
         variant: "destructive",
       });
       return;
@@ -36,7 +36,7 @@ const Recharge = () => {
     if (creditAmount > 10000) {
       toast({
         title: "充值金额过高",
-        description: "单次最多充值10000钻石",
+        description: "单次最多充值10000元宝",
         variant: "destructive",
       });
       return;
@@ -44,7 +44,7 @@ const Recharge = () => {
 
     toast({
       title: "充值成功！",
-      description: `已充值${creditAmount}钻石，快去使用吧～`,
+      description: `已充值${creditAmount}元宝，快去使用吧～`,
     });
     
     setTimeout(() => {
@@ -66,12 +66,12 @@ const Recharge = () => {
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
-          <h1 className="text-xl font-bold text-white">钻石充值</h1>
+          <h1 className="text-xl font-bold text-white">元宝充值</h1>
         </div>
 
         <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
           <div className="p-6 text-center">
-            <div className="text-sm text-white/80 mb-2">当前钻石</div>
+            <div className="text-sm text-white/80 mb-2">当前元宝</div>
             <div className="flex items-center justify-center gap-2">
               <DiamondIcon className="w-6 h-6" />
               <span className="text-3xl font-bold">268</span>
@@ -84,7 +84,7 @@ const Recharge = () => {
       <div className="px-4 py-6">
         <Card className="p-6 shadow-lg">
           <Label htmlFor="credits" className="text-sm font-medium mb-3 block">
-            充值钻石数量
+            充值元宝数量
           </Label>
           <div className="relative mb-4">
             <DiamondIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
@@ -100,10 +100,10 @@ const Recharge = () => {
                 }
               }}
               className="pl-12 pr-16 h-14 text-lg rounded-xl"
-              placeholder="请输入钻石数量"
+              placeholder="请输入元宝数量"
             />
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground">
-              钻石
+              元宝
             </span>
           </div>
           
@@ -117,8 +117,8 @@ const Recharge = () => {
           </div>
 
           <div className="mt-4 text-xs text-muted-foreground space-y-1">
-            <div>• 最低充值1钻石，最高单次充值10000钻石</div>
-            <div>• 充值成功后钻石立即到账</div>
+            <div>• 最低充值1元宝，最高单次充值10000元宝</div>
+            <div>• 充值成功后元宝立即到账</div>
           </div>
         </Card>
       </div>
