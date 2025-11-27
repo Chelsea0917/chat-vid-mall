@@ -1,7 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Home, Video, MessageCircle, Heart, User } from "lucide-react";
 import { cn } from "@/lib/utils";
-import characterButton from "@/assets/character-button.png";
 
 const BottomNav = () => {
   const location = useLocation();
@@ -26,14 +25,10 @@ const BottomNav = () => {
               <Link
                 key={item.path}
                 to={item.path}
-                className="relative flex flex-col items-center justify-center -mt-8"
+                className="relative flex flex-col items-center justify-center -mt-6"
               >
-                <div className="w-20 h-20 hover:scale-110 transition-transform drop-shadow-lg">
-                  <img 
-                    src={characterButton} 
-                    alt="AI Character"
-                    className="w-full h-full object-contain"
-                  />
+                <div className="w-14 h-14 rounded-full bg-gradient-primary flex items-center justify-center shadow-lg shadow-primary/30 hover:scale-110 transition-transform">
+                  <Icon className="w-6 h-6 text-white" />
                 </div>
               </Link>
             );
