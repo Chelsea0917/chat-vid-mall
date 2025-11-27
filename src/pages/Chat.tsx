@@ -86,17 +86,50 @@ const Chat = () => {
         </div>
 
         {/* Voice Chat Mode */}
-        <TabsContent value="voice" className="flex-1 hidden flex-col items-center justify-center m-0 data-[state=active]:flex">
-          <div className="relative flex flex-col items-center justify-center gap-8 mt-4">
-            <div 
-              className="w-32 h-32 rounded-full bg-gradient-primary transition-all duration-300 ease-out"
-              style={{ 
-                transform: `scale(${getVoiceScale()})`,
-              }}
-            />
+        <TabsContent value="voice" className="flex-1 hidden flex-col m-0 data-[state=active]:flex">
+          {/* Reserved space at top */}
+          <div className="flex-1 flex flex-col">
+            {/* Voice waveform and transcription area */}
+            {isRecording && (
+              <div className="flex-1 flex flex-col items-center justify-center px-6 py-8">
+                {/* Voice waveform */}
+                <div className="flex items-end justify-center gap-1 mb-8 h-24">
+                  {[...Array(20)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="w-1 bg-gradient-primary rounded-full transition-all duration-150"
+                      style={{
+                        height: `${20 + Math.sin((audioLevel + i * 10) / 10) * 40}%`,
+                        opacity: 0.7 + Math.random() * 0.3,
+                      }}
+                    />
+                  ))}
+                </div>
+                
+                {/* Real-time transcription display */}
+                <div className="w-full max-w-md bg-background/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-border/50">
+                  <p className="text-sm text-muted-foreground mb-2">实时转录</p>
+                  <p className="text-base leading-relaxed">
+                    {messages.length > 0 ? messages[messages.length - 1].text : "正在聆听..."}
+                  </p>
+                </div>
+              </div>
+            )}
+            
+            {!isRecording && (
+              <div className="flex-1 flex items-center justify-center px-6">
+                <p className="text-muted-foreground text-center">
+                  点击下方按钮开始语音对话
+                </p>
+              </div>
+            )}
+          </div>
+          
+          {/* Start chat button at bottom */}
+          <div className="p-6 pb-24">
             <Button 
               size="lg"
-              className="rounded-full px-8"
+              className="w-full rounded-full h-14 font-bold"
               onClick={() => setIsRecording(!isRecording)}
             >
               <Mic className="w-5 h-5 mr-2" />
