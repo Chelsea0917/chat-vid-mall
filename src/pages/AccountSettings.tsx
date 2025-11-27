@@ -63,61 +63,61 @@ const AccountSettings = () => {
 
       <div className="px-4 -mt-4">
         {/* Avatar Section */}
-        <Card className="p-6 mb-4 shadow-lg">
-          <Label className="text-sm font-medium mb-3 block">头像</Label>
-          <div className="flex items-center gap-4 mb-4">
+        <Card className="p-4 mb-3 shadow-lg">
+          <Label className="text-sm font-medium mb-2 block">头像</Label>
+          <div className="flex items-center gap-3">
             <div className="relative">
-              <Avatar className="w-20 h-20 border-4 border-primary/20">
+              <Avatar className="w-16 h-16 border-4 border-primary/20">
                 <AvatarImage src={avatarUrl} />
-                <AvatarFallback className="text-3xl bg-primary/10">
+                <AvatarFallback className="text-2xl bg-primary/10">
                   {avatarUrl || "👤"}
                 </AvatarFallback>
               </Avatar>
               <button
                 onClick={handleAvatarClick}
-                className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center shadow-lg hover:bg-primary/90 transition-colors"
+                className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-primary text-white flex items-center justify-center shadow-lg hover:bg-primary/90 transition-colors"
               >
-                <Camera className="w-4 h-4" />
+                <Camera className="w-3.5 h-3.5" />
               </button>
             </div>
-            <div className="flex-1 text-sm text-muted-foreground">
+            <div className="flex-1 text-xs text-muted-foreground">
               点击相机图标上传新头像
             </div>
           </div>
         </Card>
 
         {/* Nickname Section */}
-        <Card className="p-6 mb-4 shadow-lg">
-          <Label htmlFor="nickname" className="text-sm font-medium mb-3 block">
+        <Card className="p-4 mb-3 shadow-lg">
+          <Label htmlFor="nickname" className="text-sm font-medium mb-2 block">
             昵称
           </Label>
           <div className="relative">
-            <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+            <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
               id="nickname"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
-              className="pl-10 h-12 rounded-xl"
+              className="pl-9 h-10 rounded-xl"
               placeholder="请输入昵称"
               maxLength={20}
             />
           </div>
-          <div className="text-xs text-muted-foreground mt-2 text-right">
+          <div className="text-xs text-muted-foreground mt-1.5 text-right">
             {nickname.length}/20
           </div>
         </Card>
 
         {/* Account Info */}
-        <Card className="p-6 mb-4 shadow-lg">
-          <div className="space-y-4">
+        <Card className="p-4 mb-3 shadow-lg">
+          <div className="space-y-3">
             <div>
-              <Label className="text-sm text-muted-foreground">用户ID</Label>
-              <div className="text-base font-medium mt-1">123456789</div>
+              <Label className="text-xs text-muted-foreground">用户ID</Label>
+              <div className="text-sm font-medium mt-0.5">123456789</div>
             </div>
             <div className="h-px bg-border" />
             <div>
-              <Label className="text-sm text-muted-foreground">注册时间</Label>
-              <div className="text-base font-medium mt-1">2024年1月1日</div>
+              <Label className="text-xs text-muted-foreground">注册时间</Label>
+              <div className="text-sm font-medium mt-0.5">2024年1月1日</div>
             </div>
           </div>
         </Card>
@@ -125,7 +125,7 @@ const AccountSettings = () => {
         {/* Save Button */}
         <Button
           onClick={handleSave}
-          className="w-full h-12 rounded-full font-bold shadow-lg mb-6"
+          className="w-full h-11 rounded-full font-bold shadow-lg mb-4"
         >
           保存修改
         </Button>
