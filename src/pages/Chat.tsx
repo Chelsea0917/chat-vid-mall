@@ -88,9 +88,10 @@ const Chat = () => {
         <TabsContent value="voice" className="flex-1 hidden items-center justify-center m-0 data-[state=active]:flex">
           <div className="relative flex items-center justify-center -mt-12">
             <div 
-              className="w-48 h-48 rounded-full overflow-hidden shadow-2xl transition-all duration-300 ease-out ring-4 ring-primary/20"
+              className="relative w-52 h-64 overflow-hidden shadow-2xl transition-all duration-300 ease-out ring-4 ring-primary/20"
               style={{ 
                 transform: `scale(${getVoiceScale()})`,
+                borderRadius: '50% 50% 50% 50% / 60% 60% 40% 40%',
               }}
             >
               <img 
@@ -98,6 +99,10 @@ const Chat = () => {
                 alt="AI Character" 
                 className="w-full h-full object-cover"
               />
+              {/* Smile face overlay */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="text-6xl opacity-80">😊</div>
+              </div>
             </div>
           </div>
         </TabsContent>
