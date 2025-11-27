@@ -44,33 +44,6 @@ const Videos = () => {
 
   return (
     <div className="relative h-screen bg-black overflow-hidden">
-      {/* Top Category Tabs */}
-      <div className="absolute top-0 left-0 right-0 z-30 pt-safe">
-        <div className="flex items-center justify-center gap-8 py-4">
-          <button
-            onClick={() => setActiveTab("recommend")}
-            className={cn(
-              "text-lg font-medium transition-all",
-              activeTab === "recommend"
-                ? "text-white scale-110"
-                : "text-white/60"
-            )}
-          >
-            推荐
-          </button>
-          <button
-            onClick={() => setActiveTab("earn")}
-            className={cn(
-              "text-lg font-medium transition-all",
-              activeTab === "earn"
-                ? "text-white scale-110"
-                : "text-white/60"
-            )}
-          >
-            赚金币
-          </button>
-        </div>
-      </div>
 
       {/* Video Background */}
       <div className="absolute inset-0 flex items-center justify-center">
@@ -80,39 +53,6 @@ const Videos = () => {
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-video-overlay pointer-events-none" />
 
-      {/* Ad Progress Indicator (only for earn tab) */}
-      {activeTab === "earn" && (
-        <div className="absolute top-20 left-4 z-30">
-          <div className="relative w-12 h-12">
-            {/* Progress Circle */}
-            <svg className="w-12 h-12 transform -rotate-90">
-              <circle
-                cx="24"
-                cy="24"
-                r="20"
-                stroke="rgba(255,255,255,0.2)"
-                strokeWidth="3"
-                fill="none"
-              />
-              <circle
-                cx="24"
-                cy="24"
-                r="20"
-                stroke="hsl(var(--coin-gold))"
-                strokeWidth="3"
-                fill="none"
-                strokeDasharray={`${2 * Math.PI * 20}`}
-                strokeDashoffset={`${2 * Math.PI * 20 * (1 - adProgress / 100)}`}
-                className="transition-all duration-100"
-              />
-            </svg>
-            {/* Coin Icon */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <CoinIcon className="w-6 h-6" />
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Reward Notification */}
       {showReward && (
@@ -137,21 +77,6 @@ const Videos = () => {
         </div>
       </div>
 
-      {/* Right Side Actions */}
-      <div className="absolute right-4 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-4 items-center">
-        <button
-          onClick={() => setLiked(!liked)}
-          className="flex flex-col items-center gap-1 text-white group"
-        >
-          <div className={cn(
-            "w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform",
-            liked && "bg-primary"
-          )}>
-            <Heart className={cn("w-4 h-4", liked && "fill-current")} />
-          </div>
-          <span className="text-[11px]">12.5k</span>
-        </button>
-      </div>
 
       <BottomNav />
     </div>

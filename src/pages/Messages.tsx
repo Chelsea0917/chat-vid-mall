@@ -460,22 +460,6 @@ const Messages = () => {
               </Button>
             </div>
 
-            {/* Progress Indicator */}
-            <div className="flex justify-center gap-2 mt-3">
-              {cards.map((_, index) => (
-                <div
-                  key={index}
-                  className={cn(
-                    "h-1 rounded-full transition-all",
-                    index === currentIndex
-                      ? "w-8 bg-primary"
-                      : index < currentIndex
-                      ? "w-2 bg-primary/30"
-                      : "w-2 bg-border"
-                  )}
-                />
-              ))}
-            </div>
           </div>
         )}
       </div>
