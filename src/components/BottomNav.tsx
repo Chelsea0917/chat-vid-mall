@@ -25,9 +25,9 @@ const BottomNav = () => {
               <Link
                 key={item.path}
                 to={item.path}
-                className="relative flex flex-col items-center justify-center -mt-6"
+                className="relative flex flex-col items-center justify-center -mt-8"
               >
-                <div className="w-16 h-12 bg-gradient-primary flex items-center justify-center shadow-lg shadow-primary/30 hover:scale-110 transition-transform" style={{ borderRadius: '50% 50% 50% 50% / 60% 60% 40% 40%' }}>
+                <div className="w-14 h-[72px] bg-gradient-primary flex items-center justify-center shadow-lg shadow-primary/30 hover:scale-110 transition-transform" style={{ borderRadius: '50% 50% 50% 50% / 60% 60% 40% 40%' }}>
                   <Icon className="w-6 h-6 text-white" />
                 </div>
               </Link>
