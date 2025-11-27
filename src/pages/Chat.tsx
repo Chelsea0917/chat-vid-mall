@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { Send } from "lucide-react";
+import { Send, Mic } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Chat = () => {
   const [messages, setMessages] = useState([
@@ -13,6 +14,7 @@ const Chat = () => {
   ]);
   const [inputValue, setInputValue] = useState("");
   const [audioLevel, setAudioLevel] = useState(0);
+  const [isRecording, setIsRecording] = useState(false);
   const animationFrameRef = useRef<number>();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -84,14 +86,22 @@ const Chat = () => {
         </div>
 
         {/* Voice Chat Mode */}
-        <TabsContent value="voice" className="flex-1 hidden items-center justify-center m-0 data-[state=active]:flex">
-          <div className="relative flex items-center justify-center -mt-12">
+        <TabsContent value="voice" className="flex-1 hidden flex-col items-center justify-center m-0 data-[state=active]:flex">
+          <div className="relative flex flex-col items-center justify-center gap-8 -mt-12">
             <div 
               className="w-32 h-32 rounded-full bg-gradient-primary transition-all duration-300 ease-out"
               style={{ 
                 transform: `scale(${getVoiceScale()})`,
               }}
             />
+            <Button 
+              size="lg"
+              className="rounded-full px-8"
+              onClick={() => setIsRecording(!isRecording)}
+            >
+              <Mic className="w-5 h-5 mr-2" />
+              {isRecording ? "停止聊天" : "开始聊天"}
+            </Button>
           </div>
         </TabsContent>
 
@@ -102,8 +112,13 @@ const Chat = () => {
             {messages.map((msg) => (
               <div
                 key={msg.id}
-                className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"} animate-fade-in`}
+                className={`flex gap-3 ${msg.type === "user" ? "justify-end" : "justify-start"} animate-fade-in`}
               >
+                {msg.type === "ai" && (
+                  <Avatar className="w-8 h-8 flex-shrink-0">
+                    <AvatarFallback className="bg-gradient-primary text-white text-xs">AI</AvatarFallback>
+                  </Avatar>
+                )}
                 <div
                   className={`max-w-[75%] rounded-2xl px-4 py-3 ${
                     msg.type === "user"
@@ -113,6 +128,11 @@ const Chat = () => {
                 >
                   <p className="text-sm">{msg.text}</p>
                 </div>
+                {msg.type === "user" && (
+                  <Avatar className="w-8 h-8 flex-shrink-0">
+                    <AvatarFallback className="bg-secondary text-secondary-foreground text-xs">我</AvatarFallback>
+                  </Avatar>
+                )}
               </div>
             ))}
             <div ref={messagesEndRef} />
