@@ -4,7 +4,6 @@ import BottomNav from "@/components/BottomNav";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import characterAvatar from "@/assets/character-avatar.jpg";
 
 const Chat = () => {
   const [messages, setMessages] = useState([
@@ -88,17 +87,11 @@ const Chat = () => {
         <TabsContent value="voice" className="flex-1 hidden items-center justify-center m-0 data-[state=active]:flex">
           <div className="relative flex items-center justify-center -mt-12">
             <div 
-              className="w-48 h-48 rounded-full overflow-hidden shadow-2xl transition-all duration-300 ease-out ring-4 ring-primary/20"
+              className="w-32 h-32 rounded-full bg-gradient-primary transition-all duration-300 ease-out"
               style={{ 
                 transform: `scale(${getVoiceScale()})`,
               }}
-            >
-              <img 
-                src={characterAvatar} 
-                alt="AI Character" 
-                className="w-full h-full object-cover"
-              />
-            </div>
+            />
           </div>
         </TabsContent>
 
