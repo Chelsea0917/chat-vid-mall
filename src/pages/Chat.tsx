@@ -87,22 +87,37 @@ const Chat = () => {
 
         {/* Voice Chat Mode */}
         <TabsContent value="voice" className="flex-1 hidden flex-col m-0 data-[state=active]:flex">
-          {/* Reserved space at top */}
-          <div className="flex-1 flex flex-col">
-            {/* Real-time transcription area */}
-            {isRecording && (
-              <div className="flex-1 flex items-center justify-center px-6">
-                <div className="w-full max-w-md bg-background/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-border/50">
-                  <p className="text-sm text-muted-foreground mb-2">实时转录</p>
-                  <p className="text-base leading-relaxed">
-                    {messages.length > 0 ? messages[messages.length - 1].text : "正在聆听..."}
-                  </p>
+          {/* Messages area - same format as text chat */}
+          <div className="flex-1 overflow-y-auto px-4 pt-4 pb-4 space-y-4 flex flex-col justify-end">
+            {isRecording && messages.length > 0 ? (
+              messages.slice(-3).map((msg) => (
+                <div
+                  key={msg.id}
+                  className={`flex gap-3 ${msg.type === "user" ? "justify-end" : "justify-start"} animate-fade-in`}
+                >
+                  {msg.type === "ai" && (
+                    <Avatar className="w-8 h-8 flex-shrink-0">
+                      <AvatarFallback className="bg-gradient-primary text-white text-xs">AI</AvatarFallback>
+                    </Avatar>
+                  )}
+                  <div
+                    className={`max-w-[75%] rounded-2xl px-4 py-3 ${
+                      msg.type === "user"
+                        ? "bg-gradient-primary text-white"
+                        : "bg-background shadow-sm"
+                    }`}
+                  >
+                    <p className="text-sm">{msg.text}</p>
+                  </div>
+                  {msg.type === "user" && (
+                    <Avatar className="w-8 h-8 flex-shrink-0">
+                      <AvatarFallback className="bg-secondary text-secondary-foreground text-xs">我</AvatarFallback>
+                    </Avatar>
+                  )}
                 </div>
-              </div>
-            )}
-            
-            {!isRecording && (
-              <div className="flex-1 flex items-center justify-center px-6">
+              ))
+            ) : (
+              <div className="flex items-center justify-center">
                 <p className="text-muted-foreground text-center">
                   点击下方按钮开始语音对话
                 </p>
@@ -110,34 +125,32 @@ const Chat = () => {
             )}
           </div>
           
-          {/* Start chat button with horizontal waveform at bottom */}
-          <div className="p-6 pb-24 flex flex-col items-center gap-4">
-            <div className="flex items-center gap-3">
-              <Button 
-                size="default"
-                className="rounded-full h-11 px-6"
-                onClick={() => setIsRecording(!isRecording)}
-              >
-                <Mic className="w-4 h-4 mr-2" />
-                {isRecording ? "停止" : "开始"}
-              </Button>
-              
-              {/* Horizontal voice waveform next to button */}
-              {isRecording && (
-                <div className="flex items-center gap-0.5 h-11">
-                  {[...Array(12)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="w-0.5 bg-gradient-primary rounded-full transition-all duration-150"
-                      style={{
-                        height: `${8 + Math.sin((audioLevel + i * 15) / 10) * 12}px`,
-                        opacity: 0.6 + Math.random() * 0.4,
-                      }}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
+          {/* Start chat button with waveform below it */}
+          <div className="p-6 pb-24 flex flex-col items-center gap-3">
+            <Button 
+              size="default"
+              className="rounded-full h-11 px-6"
+              onClick={() => setIsRecording(!isRecording)}
+            >
+              <Mic className="w-4 h-4 mr-2" />
+              {isRecording ? "停止" : "开始"}
+            </Button>
+            
+            {/* Horizontal voice waveform below button */}
+            {isRecording && (
+              <div className="flex items-center gap-0.5 h-8">
+                {[...Array(12)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="w-0.5 bg-gradient-primary rounded-full transition-all duration-150"
+                    style={{
+                      height: `${8 + Math.sin((audioLevel + i * 15) / 10) * 12}px`,
+                      opacity: 0.6 + Math.random() * 0.4,
+                    }}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </TabsContent>
 
