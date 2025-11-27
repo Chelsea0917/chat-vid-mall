@@ -87,7 +87,7 @@ const Chat = () => {
 
         {/* Voice Chat Mode */}
         <TabsContent value="voice" className="flex-1 hidden flex-col items-center justify-center m-0 data-[state=active]:flex">
-          <div className="relative flex flex-col items-center justify-center gap-8 -mt-12">
+          <div className="relative flex flex-col items-center justify-center gap-8 mt-4">
             <div 
               className="w-32 h-32 rounded-full bg-gradient-primary transition-all duration-300 ease-out"
               style={{ 
