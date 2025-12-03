@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from "react";
-import { Send, Mic } from "lucide-react";
-import BottomNav from "@/components/BottomNav";
+import { Send, Mic, ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const Chat = () => {
+  const navigate = useNavigate();
   const [messages, setMessages] = useState([
     { id: 1, type: "ai", text: "你好！我是你的AI陪伴助手，有什么可以帮助你的吗？😊" },
     { id: 2, type: "user", text: "最近有什么新品推荐吗？" },
@@ -78,11 +79,20 @@ const Chat = () => {
   return (
     <div className="flex flex-col h-screen bg-muted/30">
       <Tabs defaultValue="text" className="flex-1 flex flex-col">
-        <div className="flex justify-center px-4 py-3 bg-background border-b border-border pt-safe">
+        <div className="flex items-center px-4 py-3 bg-background border-b border-border pt-safe gap-3">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => navigate(-1)}
+            className="flex-shrink-0"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </Button>
           <TabsList className="grid w-full max-w-xs grid-cols-2">
             <TabsTrigger value="voice">语音</TabsTrigger>
             <TabsTrigger value="text">文字</TabsTrigger>
           </TabsList>
+          <div className="w-10" /> {/* Spacer for balance */}
         </div>
 
         {/* Voice Chat Mode */}
@@ -153,7 +163,7 @@ const Chat = () => {
           </div>
 
           {/* Input Area */}
-          <div className="bg-background border-t border-border px-4 py-3 pb-20">
+          <div className="bg-background border-t border-border px-4 py-3 pb-safe">
             <div className="flex items-center gap-2">
               <Input
                 placeholder="输入消息..."
@@ -173,8 +183,6 @@ const Chat = () => {
           </div>
         </TabsContent>
       </Tabs>
-
-      <BottomNav />
     </div>
   );
 };
