@@ -481,7 +481,7 @@ const Videos = () => {
       {mainTab === "video" && (
         <div className="flex-1 relative bg-black">
           {/* 关注筛选开关 - 左上角，导航栏下方 */}
-          <div className="absolute top-3 left-4 z-30 flex items-center gap-2 bg-black/40 backdrop-blur-sm rounded-full px-3 py-1.5">
+          <div className="absolute top-14 left-4 z-30 flex items-center gap-2 bg-black/40 backdrop-blur-sm rounded-full px-3 py-1.5">
             <span className="text-xs text-white/80">关注</span>
             <Switch
               checked={onlyFollowing}
