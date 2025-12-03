@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { X, Heart, Info, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, Heart, ChevronLeft, ChevronRight } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
+import FloatingChatButton from "@/components/FloatingChatButton";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CoinIcon } from "@/components/CurrencyIcons";
@@ -455,6 +456,7 @@ const Messages = () => {
         )}
       </div>
 
+      <FloatingChatButton />
       <BottomNav />
     </div>
   );

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Heart } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
+import FloatingChatButton from "@/components/FloatingChatButton";
 import { cn } from "@/lib/utils";
 import { CoinIcon } from "@/components/CurrencyIcons";
 
@@ -78,6 +79,7 @@ const Videos = () => {
       </div>
 
 
+      <FloatingChatButton />
       <BottomNav />
     </div>
   );

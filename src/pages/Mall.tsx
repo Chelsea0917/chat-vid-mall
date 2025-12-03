@@ -1,5 +1,6 @@
 import { Heart } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
+import FloatingChatButton from "@/components/FloatingChatButton";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -71,6 +72,7 @@ const Mall = () => {
         </div>
       </div>
 
+      <FloatingChatButton />
       <BottomNav />
     </div>
   );
