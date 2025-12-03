@@ -426,54 +426,55 @@ const Videos = () => {
 
   return (
     <div className="relative h-screen bg-background overflow-hidden flex flex-col">
-      {/* 顶部主分类条 */}
-      <div className="flex-shrink-0 bg-background border-b border-border/40 pt-safe">
-        <div className="flex items-center justify-center h-12 px-4 relative">
-          <div className="flex gap-8">
+      {/* 顶部主分类条 - 抖音风格 */}
+      <div className="flex-shrink-0 bg-black/90 pt-safe">
+        <div className="flex items-center justify-center h-11 px-4">
+          <div className="flex items-center gap-6">
             <button
               onClick={() => setMainTab("video")}
               className={cn(
-                "text-base font-medium transition-colors relative pb-2",
-                mainTab === "video" ? "text-foreground" : "text-muted-foreground"
+                "text-[15px] transition-all relative py-2",
+                mainTab === "video" 
+                  ? "text-white font-semibold" 
+                  : "text-white/60 font-normal"
               )}
             >
               视频
               {mainTab === "video" && (
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-primary rounded-full" />
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-5 h-[2px] bg-white rounded-full" />
               )}
             </button>
             <button
               onClick={() => setMainTab("daily")}
               className={cn(
-                "text-base font-medium transition-colors relative pb-2",
-                mainTab === "daily" ? "text-foreground" : "text-muted-foreground"
+                "text-[15px] transition-all relative py-2",
+                mainTab === "daily" 
+                  ? "text-white font-semibold" 
+                  : "text-white/60 font-normal"
               )}
             >
               日常
               {mainTab === "daily" && (
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-primary rounded-full" />
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-5 h-[2px] bg-white rounded-full" />
               )}
             </button>
           </div>
-
-          {/* 视频板块的关注筛选开关 */}
-          {mainTab === "video" && (
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
-              <Eye className="w-4 h-4 text-muted-foreground" />
-              <span className="text-xs text-muted-foreground">关注</span>
-              <Switch
-                checked={onlyFollowing}
-                onCheckedChange={setOnlyFollowing}
-                className="scale-75"
-              />
-            </div>
-          )}
         </div>
       </div>
 
       {/* 视频板块 */}
       {mainTab === "video" && (
         <div className="flex-1 relative bg-black">
+          {/* 关注筛选开关 - 右上角 */}
+          <div className="absolute top-3 right-4 z-30 flex items-center gap-2 bg-black/40 backdrop-blur-sm rounded-full px-3 py-1.5">
+            <span className="text-xs text-white/80">关注</span>
+            <Switch
+              checked={onlyFollowing}
+              onCheckedChange={setOnlyFollowing}
+              className="scale-75 data-[state=checked]:bg-primary"
+            />
+          </div>
+
           {/* Video Background */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-white/20 text-9xl">🎬</div>
@@ -510,21 +511,21 @@ const Videos = () => {
       {/* 日常板块 */}
       {mainTab === "daily" && (
         <div className="flex-1 flex flex-col overflow-hidden">
-          {/* 日常分类选项卡 - 类似图片中的样式 */}
-          <div className="flex-shrink-0 bg-background px-4 py-3 overflow-x-auto">
-            <div className="flex gap-3">
+          {/* 日常分类选项卡 */}
+          <div className="flex-shrink-0 bg-background px-4 py-2">
+            <div className="flex gap-2">
               {dailyCategories.map((cat) => (
                 <button
                   key={cat.key}
                   onClick={() => setDailyTab(cat.key)}
                   className={cn(
-                    "flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap",
+                    "flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium transition-all",
                     dailyTab === cat.key
-                      ? "bg-primary text-primary-foreground shadow-md"
-                      : "bg-muted/60 text-muted-foreground hover:bg-muted"
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-muted/50 text-muted-foreground hover:bg-muted"
                   )}
                 >
-                  <span>{cat.icon}</span>
+                  <span className="text-[10px]">{cat.icon}</span>
                   <span>{cat.label}</span>
                 </button>
               ))}
