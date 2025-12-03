@@ -91,19 +91,6 @@ const Profile = () => {
             })}
           </div>
 
-          {/* Task Card */}
-          <div className="mx-3 mb-3 p-3 bg-muted/50 rounded-lg flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-foreground">上传本人头像</p>
-              <p className="text-xs text-primary flex items-center gap-1">
-                <DiamondIcon className="w-3.5 h-3.5" />
-                <span>+3元宝</span>
-              </p>
-            </div>
-            <Button size="sm" className="rounded-full px-4 h-7 text-xs bg-primary hover:bg-primary/90">
-              去完成
-            </Button>
-          </div>
         </Card>
       </div>
 
