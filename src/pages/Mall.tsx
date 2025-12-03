@@ -27,9 +27,9 @@ const Mall = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background pb-20">
+    <div className="h-screen flex flex-col bg-background">
       {/* Header */}
-      <div className="sticky top-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border/40 pt-safe">
+      <div className="flex-shrink-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border/40 pt-safe">
         <div className="px-4 py-3 flex items-center justify-between">
           <h1 className="text-xl font-bold">商城</h1>
           <button className="relative">
@@ -41,34 +41,37 @@ const Mall = () => {
         </div>
       </div>
 
-      {/* Recommended Products */}
-      <div className="px-4 py-4">
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-lg font-bold">为你推荐</h2>
-        </div>
-        <div className="grid grid-cols-2 gap-3">
-          {products.map((product) => (
-            <Card key={product.id} className="overflow-hidden hover-scale cursor-pointer relative">
-              <div className="p-3">
-                <div className="w-full aspect-square rounded-lg bg-gradient-to-br from-primary/5 to-secondary/5 flex items-center justify-center text-6xl mb-2">
-                  {product.image}
+      {/* Scrollable Content */}
+      <div className="flex-1 overflow-y-auto pb-20">
+        {/* Recommended Products */}
+        <div className="px-4 py-4">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-lg font-bold">为你推荐</h2>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            {products.map((product) => (
+              <Card key={product.id} className="overflow-hidden hover-scale cursor-pointer relative">
+                <div className="p-3">
+                  <div className="w-full aspect-square rounded-lg bg-gradient-to-br from-primary/5 to-secondary/5 flex items-center justify-center text-6xl mb-2">
+                    {product.image}
+                  </div>
+                  <h3 className="text-sm font-medium mb-1 line-clamp-2">{product.name}</h3>
+                  <span className="text-lg font-bold text-primary">{product.price}</span>
                 </div>
-                <h3 className="text-sm font-medium mb-1 line-clamp-2">{product.name}</h3>
-                <span className="text-lg font-bold text-primary">{product.price}</span>
-              </div>
-              <Button
-                size="icon"
-                variant="ghost"
-                className="absolute bottom-2 right-2 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleWishlist(product.id);
-                }}
-              >
-                <Heart className={`w-4 h-4 ${wishlist.includes(product.id) ? 'fill-primary text-primary' : 'text-muted-foreground'}`} />
-              </Button>
-            </Card>
-          ))}
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="absolute bottom-2 right-2 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleWishlist(product.id);
+                  }}
+                >
+                  <Heart className={`w-4 h-4 ${wishlist.includes(product.id) ? 'fill-primary text-primary' : 'text-muted-foreground'}`} />
+                </Button>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
 
