@@ -346,22 +346,17 @@ const Videos = () => {
 
             {/* K歌房卡片 */}
             <Card className="p-3 mb-3 bg-muted/30">
-              <div className="flex items-start justify-between mb-2">
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <Music className="w-4 h-4 text-primary" />
-                    <span className="font-semibold text-foreground text-sm">{post.room.storeName}</span>
-                    <span className="text-xs text-muted-foreground">{post.room.id}</span>
-                  </div>
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
-                    <MapPin className="w-3 h-3" />
-                    <span>{post.room.storeAddress}</span>
-                  </div>
-                  <h3 className="text-sm text-foreground">{post.room.title}</h3>
+              <div className="mb-2">
+                <div className="flex items-center gap-2 mb-1">
+                  <Music className="w-4 h-4 text-primary" />
+                  <span className="font-semibold text-foreground text-sm">{post.room.storeName}</span>
+                  <span className="text-xs text-muted-foreground">{post.room.id}</span>
                 </div>
-                <Badge variant={isFull ? "secondary" : "default"} className="rounded-full text-xs">
-                  ¥{post.room.price}
-                </Badge>
+                <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
+                  <MapPin className="w-3 h-3" />
+                  <span>{post.room.storeAddress}</span>
+                </div>
+                <h3 className="text-sm text-foreground">{post.room.title}</h3>
               </div>
 
               <div className="flex items-center justify-between">
@@ -387,7 +382,7 @@ const Videos = () => {
                   disabled={isFull}
                   variant={isFull ? "secondary" : "default"}
                 >
-                  {isFull ? "已满" : "加入"}
+                  {isFull ? "已满" : "申请加入"}
                 </Button>
               </div>
             </Card>
