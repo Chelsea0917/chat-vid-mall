@@ -24,6 +24,7 @@ const Profile = () => {
   const listItems = [
     { icon: Users, label: "访客", path: "/" },
     { icon: Calendar, label: "我的日常", path: "/" },
+    { icon: Gift, label: "我的订单", path: "/" },
     { icon: HelpCircle, label: "帮助与反馈", path: "/" },
     { icon: Settings, label: "设置", path: "/account-settings" },
   ];
