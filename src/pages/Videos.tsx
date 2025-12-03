@@ -389,7 +389,13 @@ const Videos = () => {
                   variant={isFull || isApplied ? "secondary" : "default"}
                   onClick={handleApply}
                 >
-                  {isFull ? "已满" : isApplied ? "已申请" : "申请加入"}
+                  {isFull ? "已满" : isApplied ? "已申请" : (
+                    <span className="flex items-center gap-1">
+                      申请加入
+                      <CoinIcon className="w-3.5 h-3.5" />
+                      <span>1</span>
+                    </span>
+                  )}
                 </Button>
               </div>
             </Card>
