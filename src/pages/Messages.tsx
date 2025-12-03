@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { Search, BadgeCheck, Gift } from "lucide-react";
+import { Search, BadgeCheck, Gift, X } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import FloatingChatButton from "@/components/FloatingChatButton";
 import { Button } from "@/components/ui/button";
@@ -321,7 +321,17 @@ const Messages = () => {
                 </div>
               ) : (
                 // 已抽取状态 - 显示用户名片
-                <Card className="w-72 p-6 bg-gradient-to-br from-pink-50 to-white shadow-xl">
+                <Card className="w-72 p-6 bg-gradient-to-br from-pink-50 to-white shadow-xl relative">
+                  {/* 关闭按钮 */}
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute top-2 right-2 w-7 h-7 rounded-full bg-muted/50 hover:bg-muted"
+                    onClick={() => setDrawnUser(null)}
+                  >
+                    <X className="w-4 h-4 text-muted-foreground" />
+                  </Button>
+                  
                   <div className="flex items-center gap-4 mb-4">
                     <Avatar className="w-16 h-16 border-2 border-primary/20">
                       <img src={drawnUser.avatar} alt={drawnUser.name} className="w-full h-full object-cover" />
