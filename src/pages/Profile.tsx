@@ -1,4 +1,4 @@
-import { ChevronRight, Crown, ShieldCheck, Copy, UserPlus, Gift, Users, Calendar, HelpCircle, Settings } from "lucide-react";
+import { ChevronRight, Copy, UserPlus, Gift, Users, Calendar, HelpCircle, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import BottomNav from "@/components/BottomNav";
 import FloatingChatButton from "@/components/FloatingChatButton";
@@ -10,15 +10,12 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const quickActions = [
-    { icon: Crown, label: "会员", color: "text-yellow-500", bgColor: "bg-yellow-100" },
-    { icon: ShieldCheck, label: "认证", color: "text-blue-500", bgColor: "bg-blue-100" },
-    { type: "coin", label: "金币" },
-    { type: "diamond", label: "元宝" },
+    { type: "coin", label: "金币", count: 1280 },
+    { type: "diamond", label: "元宝", count: 56 },
   ];
 
   const menuItems = [
     { icon: UserPlus, label: "邀请好友", rightText: "现金赚不停", rightIcon: "🧧" },
-    { icon: Gift, label: "福利中心", rightText: "上传本人头像", rightIcon: "💎" },
   ];
 
   const listItems = [
@@ -60,14 +57,13 @@ const Profile = () => {
               <button key={index} className="flex flex-col items-center gap-1.5 px-2">
                 {action.type === "coin" ? (
                   <CoinIcon className="w-8 h-8" />
-                ) : action.type === "diamond" ? (
-                  <DiamondIcon className="w-8 h-8" />
                 ) : (
-                  <div className={`w-8 h-8 rounded-full ${action.bgColor} flex items-center justify-center`}>
-                    {action.icon && <action.icon className={`w-5 h-5 ${action.color}`} />}
-                  </div>
+                  <DiamondIcon className="w-8 h-8" />
                 )}
-                <span className="text-xs text-foreground">{action.label}</span>
+                <div className="flex items-center gap-1">
+                  <span className="text-sm font-medium text-foreground">{action.count}</span>
+                  <span className="text-xs text-muted-foreground">{action.label}</span>
+                </div>
               </button>
             ))}
           </div>
