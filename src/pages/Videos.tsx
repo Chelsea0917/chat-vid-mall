@@ -196,6 +196,7 @@ const Videos = () => {
   const [friendPostsState, setFriendPostsState] = useState(friendPosts);
   const [buddyPostsState, setBuddyPostsState] = useState(buddyPosts);
   const [karaokeInvitesState, setKaraokeInvitesState] = useState(karaokeInvites);
+  const [appliedRooms, setAppliedRooms] = useState<Set<number>>(new Set());
 
   // 广告进度条逻辑
   useEffect(() => {
@@ -323,6 +324,11 @@ const Videos = () => {
   // K歌房邀请卡片
   const KaraokeInviteCard = ({ post }: { post: typeof karaokeInvites[0] }) => {
     const isFull = post.room.current >= post.room.capacity;
+    const isApplied = appliedRooms.has(post.id);
+    
+    const handleApply = () => {
+      setAppliedRooms(prev => new Set(prev).add(post.id));
+    };
     return (
       <div className="py-4 border-b border-border/30">
         <div className="flex items-start gap-3">
@@ -379,10 +385,11 @@ const Videos = () => {
                 <Button
                   size="sm"
                   className="rounded-full h-7 text-xs"
-                  disabled={isFull}
-                  variant={isFull ? "secondary" : "default"}
+                  disabled={isFull || isApplied}
+                  variant={isFull || isApplied ? "secondary" : "default"}
+                  onClick={handleApply}
                 >
-                  {isFull ? "已满" : "申请加入"}
+                  {isFull ? "已满" : isApplied ? "已申请" : "申请加入"}
                 </Button>
               </div>
             </Card>
