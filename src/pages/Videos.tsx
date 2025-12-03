@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { Heart, MessageCircle, Share2, BadgeCheck, Music, Users, MapPin, Eye } from "lucide-react";
+import { Heart, MessageCircle, Share2, BadgeCheck, Music, Users, MapPin, Eye, Plus } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import FloatingChatButton from "@/components/FloatingChatButton";
 import { cn } from "@/lib/utils";
@@ -438,7 +438,8 @@ const Videos = () => {
             "pt-safe z-40",
             isVideoMode ? "absolute top-0 left-0 right-0" : "relative bg-background"
           )}>
-            <div className="flex items-center justify-center h-11 px-4">
+            <div className="flex items-center justify-between h-11 px-4">
+              <div className="w-8" /> {/* 左侧占位 */}
               <div className="flex items-center gap-6">
                 <button
                   onClick={() => setMainTab("video")}
@@ -465,6 +466,12 @@ const Videos = () => {
                   )}
                 </button>
               </div>
+              <button className={cn(
+                "w-8 h-8 flex items-center justify-center rounded-full transition-colors",
+                isVideoMode ? "text-white hover:bg-white/10" : "text-foreground hover:bg-muted"
+              )}>
+                <Plus className="w-5 h-5" />
+              </button>
             </div>
           </div>
         );
@@ -473,8 +480,8 @@ const Videos = () => {
       {/* 视频板块 */}
       {mainTab === "video" && (
         <div className="flex-1 relative bg-black">
-          {/* 关注筛选开关 - 右上角 */}
-          <div className="absolute top-3 right-4 z-30 flex items-center gap-2 bg-black/40 backdrop-blur-sm rounded-full px-3 py-1.5">
+          {/* 关注筛选开关 - 左上角，导航栏下方 */}
+          <div className="absolute top-3 left-4 z-30 flex items-center gap-2 bg-black/40 backdrop-blur-sm rounded-full px-3 py-1.5">
             <span className="text-xs text-white/80">关注</span>
             <Switch
               checked={onlyFollowing}
