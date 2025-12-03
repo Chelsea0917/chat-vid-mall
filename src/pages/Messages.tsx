@@ -264,14 +264,8 @@ const Messages = () => {
       {/* Header with Tabs and Publish Button */}
       <div className="flex-shrink-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border/40 pt-safe">
         <div className="flex items-center h-12 px-4">
-          {/* 发布按钮 */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="w-9 h-9 rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
-          >
-            <Plus className="w-5 h-5" />
-          </Button>
+          {/* 占位，保持居中 */}
+          <div className="w-7" />
           
           {/* Tabs */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1">
@@ -297,8 +291,14 @@ const Messages = () => {
             </TabsList>
           </Tabs>
           
-          {/* 占位，保持居中 */}
-          <div className="w-9" />
+          {/* 发布按钮 */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="w-7 h-7 rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
+          >
+            <Plus className="w-4 h-4" />
+          </Button>
         </div>
       </div>
 
