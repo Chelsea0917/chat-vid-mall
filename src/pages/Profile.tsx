@@ -1,6 +1,7 @@
 import { Settings, ChevronRight, CreditCard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import BottomNav from "@/components/BottomNav";
+import FloatingChatButton from "@/components/FloatingChatButton";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { CoinIcon, DiamondIcon } from "@/components/CurrencyIcons";
@@ -87,6 +88,7 @@ const Profile = () => {
         </Button>
       </div>
 
+      <FloatingChatButton />
       <BottomNav />
     </div>
   );

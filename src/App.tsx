@@ -7,6 +7,7 @@ import Mall from "./pages/Mall";
 import Videos from "./pages/Videos";
 import Chat from "./pages/Chat";
 import Messages from "./pages/Messages";
+import Notifications from "./pages/Notifications";
 import Profile from "./pages/Profile";
 import Recharge from "./pages/Recharge";
 import AccountSettings from "./pages/AccountSettings";
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/videos" element={<Videos />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/messages" element={<Messages />} />
+          <Route path="/notifications" element={<Notifications />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/recharge" element={<Recharge />} />
           <Route path="/account-settings" element={<AccountSettings />} />
