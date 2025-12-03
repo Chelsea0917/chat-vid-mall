@@ -3,7 +3,7 @@ import BottomNav from "@/components/BottomNav";
 import FloatingChatButton from "@/components/FloatingChatButton";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
-import { MoreHorizontal } from "lucide-react";
+import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Notifications = () => {
@@ -138,7 +138,7 @@ const Notifications = () => {
             </button>
           </div>
           <Button variant="ghost" size="icon" className="w-8 h-8">
-            <MoreHorizontal className="w-5 h-5 text-muted-foreground" />
+            <Search className="w-5 h-5 text-muted-foreground" />
           </Button>
         </div>
       </div>
