@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Heart, MessageCircle, RefreshCw, Search, Users, Music, Plus } from "lucide-react";
+import { useState, useCallback } from "react";
+import { Heart, MessageCircle, Search, Users, Music, Share2, BadgeCheck } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import FloatingChatButton from "@/components/FloatingChatButton";
 import { Button } from "@/components/ui/button";
@@ -14,9 +14,9 @@ import { cn } from "@/lib/utils";
 const friendPosts = [
   {
     id: 1,
-    user: { name: "小美", avatar: "👩" },
-    time: "10分钟前",
-    content: "今天天气真好，出门散步心情超棒！☀️",
+    user: { name: "秀秀", avatar: "👩", verified: true },
+    time: "40秒前",
+    content: "",
     images: ["🌸", "🌺", "🌻"],
     likes: 24,
     comments: 5,
@@ -24,19 +24,19 @@ const friendPosts = [
   },
   {
     id: 2,
-    user: { name: "阳光先生", avatar: "🧑" },
-    time: "1小时前",
-    content: "分享一首最近很喜欢的歌，希望你们也喜欢 🎵",
+    user: { name: "直率的小猪", avatar: "🧑", verified: true },
+    time: "41秒前",
+    content: "",
     images: ["🎵"],
-    likes: 56,
-    comments: 12,
-    liked: true,
+    likes: 1,
+    comments: 0,
+    liked: false,
   },
   {
     id: 3,
-    user: { name: "静雯", avatar: "👧" },
-    time: "3小时前",
-    content: "周末和朋友们一起去爬山，风景太美了！推荐大家有空也去看看～",
+    user: { name: "月亮代表我的心", avatar: "👧", verified: true },
+    time: "43秒前",
+    content: "来认识一下吧",
     images: ["🏔️", "🌄"],
     likes: 89,
     comments: 23,
@@ -48,7 +48,7 @@ const friendPosts = [
 const discoverPosts = [
   {
     id: 1,
-    user: { name: "旅行者小王", avatar: "👨‍🦱" },
+    user: { name: "旅行者小王", avatar: "👨‍🦱", verified: false },
     time: "刚刚",
     content: "第一次来这个城市，有什么好玩的推荐吗？",
     images: ["🏙️"],
@@ -58,7 +58,7 @@ const discoverPosts = [
   },
   {
     id: 2,
-    user: { name: "美食达人", avatar: "👩‍🍳" },
+    user: { name: "美食达人", avatar: "👩‍🍳", verified: true },
     time: "15分钟前",
     content: "今天做了一道拿手菜，味道绝了！",
     images: ["🍜", "🥗", "🍰"],
@@ -68,7 +68,7 @@ const discoverPosts = [
   },
   {
     id: 3,
-    user: { name: "音乐小哥", avatar: "🎸" },
+    user: { name: "音乐小哥", avatar: "🎸", verified: false },
     time: "30分钟前",
     content: "晚上直播唱歌，欢迎来捧场！",
     images: ["🎤"],
@@ -120,6 +120,8 @@ const Messages = () => {
   const [discoverPostsState, setDiscoverPostsState] = useState(discoverPosts);
   const [searchQuery, setSearchQuery] = useState("");
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [startY, setStartY] = useState(0);
+  const [pulling, setPulling] = useState(false);
 
   const handleLikePost = (postId: number, isFriend: boolean) => {
     if (isFriend) {
@@ -141,14 +143,34 @@ const Messages = () => {
     }
   };
 
-  const handleRefresh = () => {
+  const handleRefresh = useCallback(() => {
+    if (isRefreshing) return;
     setIsRefreshing(true);
-    setTimeout(() => setIsRefreshing(false), 1000);
+    setTimeout(() => {
+      setIsRefreshing(false);
+      setPulling(false);
+    }, 1000);
+  }, [isRefreshing]);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setStartY(e.touches[0].clientY);
   };
 
-  // 动态卡片组件
+  const handleTouchMove = (e: React.TouchEvent, scrollTop: number) => {
+    if (scrollTop === 0 && e.touches[0].clientY - startY > 50) {
+      setPulling(true);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (pulling) {
+      handleRefresh();
+    }
+  };
+
+  // 动态卡片组件 - 无边框设计
   const PostCard = ({ post, isFriend }: { post: typeof friendPosts[0]; isFriend: boolean }) => (
-    <Card className="p-4 mb-3">
+    <div className="py-4 border-b border-border/30">
       <div className="flex items-start gap-3">
         <Avatar className="w-12 h-12 flex-shrink-0">
           <AvatarFallback className="text-2xl bg-gradient-to-br from-primary/10 to-secondary/10">
@@ -157,22 +179,34 @@ const Messages = () => {
         </Avatar>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-1">
-            <span className="font-semibold text-foreground">{post.user.name}</span>
-            <span className="text-xs text-muted-foreground">{post.time}</span>
+            <div className="flex items-center gap-1">
+              <span className="font-semibold text-foreground">{post.user.name}</span>
+              {post.user.verified && (
+                <BadgeCheck className="w-4 h-4 text-emerald-500 fill-emerald-500" />
+              )}
+            </div>
+            <Button variant="ghost" size="sm" className="text-primary text-sm font-medium h-auto py-1 px-2">
+              <span className="bg-primary/10 text-primary px-2 py-0.5 rounded text-xs mr-1">Hi</span>
+              打招呼
+            </Button>
           </div>
-          <p className="text-sm text-foreground/90 mb-3 leading-relaxed">{post.content}</p>
+          <p className="text-xs text-muted-foreground mb-2">{post.time}</p>
+          
+          {post.content && (
+            <p className="text-sm text-foreground mb-3 leading-relaxed">{post.content}</p>
+          )}
           
           {/* 图片网格 */}
           <div className={cn(
-            "grid gap-2 mb-3",
+            "grid gap-1.5 mb-3",
             post.images.length === 1 && "grid-cols-1 max-w-[200px]",
             post.images.length === 2 && "grid-cols-2 max-w-[280px]",
-            post.images.length >= 3 && "grid-cols-3 max-w-[320px]"
+            post.images.length >= 3 && "grid-cols-3"
           )}>
             {post.images.map((img, idx) => (
               <div
                 key={idx}
-                className="aspect-square rounded-lg bg-gradient-to-br from-primary/5 to-secondary/5 flex items-center justify-center text-4xl"
+                className="aspect-square rounded-md bg-gradient-to-br from-primary/5 to-secondary/5 flex items-center justify-center text-3xl"
               >
                 {img}
               </div>
@@ -180,22 +214,26 @@ const Messages = () => {
           </div>
 
           {/* 互动按钮 */}
-          <div className="flex items-center gap-6">
+          <div className="flex items-center justify-between text-muted-foreground">
+            <button className="flex items-center gap-1 text-xs hover:text-primary transition-colors">
+              <Share2 className="w-4 h-4" />
+              <span>转发</span>
+            </button>
             <button
               onClick={() => handleLikePost(post.id, isFriend)}
-              className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
+              className="flex items-center gap-1 text-xs hover:text-primary transition-colors"
             >
               <Heart className={cn("w-4 h-4", post.liked && "fill-primary text-primary")} />
-              <span>{post.likes}</span>
+              <span>赞{post.likes > 0 && ` ${post.likes}`}</span>
             </button>
-            <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
+            <button className="flex items-center gap-1 text-xs hover:text-primary transition-colors">
               <MessageCircle className="w-4 h-4" />
-              <span>{post.comments}</span>
+              <span>评论{post.comments > 0 && ` ${post.comments}`}</span>
             </button>
           </div>
         </div>
       </div>
-    </Card>
+    </div>
   );
 
   return (
@@ -208,7 +246,7 @@ const Messages = () => {
               value="friends"
               className="flex-1 h-full rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none font-medium"
             >
-              好友
+              关注
             </TabsTrigger>
             <TabsTrigger
               value="discover"
@@ -226,24 +264,23 @@ const Messages = () => {
         </Tabs>
       </div>
 
-      {/* Content Area */}
-      <div className="flex-1 overflow-y-auto pb-20">
-        {/* 好友动态 */}
+      {/* Content Area with Pull to Refresh */}
+      <div 
+        className="flex-1 overflow-y-auto pb-20"
+        onTouchStart={handleTouchStart}
+        onTouchMove={(e) => handleTouchMove(e, e.currentTarget.scrollTop)}
+        onTouchEnd={handleTouchEnd}
+      >
+        {/* 下拉刷新指示器 */}
+        {(pulling || isRefreshing) && (
+          <div className="flex items-center justify-center py-3 text-sm text-muted-foreground">
+            {isRefreshing ? "刷新中..." : "松开刷新"}
+          </div>
+        )}
+
+        {/* 关注动态 */}
         {activeTab === "friends" && (
-          <div className="p-4">
-            {/* 发布动态入口 */}
-            <Card className="p-4 mb-4 flex items-center gap-3">
-              <Avatar className="w-10 h-10">
-                <AvatarFallback className="bg-gradient-primary text-white">👤</AvatarFallback>
-              </Avatar>
-              <div className="flex-1 bg-muted/50 rounded-full px-4 py-2 text-sm text-muted-foreground">
-                分享你的生活...
-              </div>
-              <Button size="icon" variant="ghost" className="rounded-full">
-                <Plus className="w-5 h-5" />
-              </Button>
-            </Card>
-            
+          <div className="px-4">
             {friendPostsState.map(post => (
               <PostCard key={post.id} post={post} isFriend={true} />
             ))}
@@ -252,18 +289,7 @@ const Messages = () => {
 
         {/* 发现页面 */}
         {activeTab === "discover" && (
-          <div className="p-4">
-            {/* 刷新按钮 */}
-            <Button
-              variant="outline"
-              className="w-full mb-4 rounded-full"
-              onClick={handleRefresh}
-              disabled={isRefreshing}
-            >
-              <RefreshCw className={cn("w-4 h-4 mr-2", isRefreshing && "animate-spin")} />
-              {isRefreshing ? "刷新中..." : "刷新动态"}
-            </Button>
-
+          <div className="px-4">
             {discoverPostsState.map(post => (
               <PostCard key={post.id} post={post} isFriend={false} />
             ))}
