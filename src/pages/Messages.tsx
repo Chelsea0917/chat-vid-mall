@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { Heart, MessageCircle, Search, Users, Music, Share2, BadgeCheck } from "lucide-react";
+import { Heart, MessageCircle, Search, Users, Music, Share2, BadgeCheck, Plus, MapPin } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import FloatingChatButton from "@/components/FloatingChatButton";
 import { Button } from "@/components/ui/button";
@@ -99,6 +99,8 @@ const discoverPosts = [
 const karaokeRooms = [
   {
     id: "#32518",
+    storeName: "星光KTV",
+    storeAddress: "朝阳区建国路88号",
     title: "70后金曲拼单房",
     price: 9.9,
     capacity: 5,
@@ -107,6 +109,8 @@ const karaokeRooms = [
   },
   {
     id: "#28734",
+    storeName: "欢乐迪KTV",
+    storeAddress: "海淀区中关村大街1号",
     title: "90后怀旧经典",
     price: 12.9,
     capacity: 10,
@@ -115,6 +119,8 @@ const karaokeRooms = [
   },
   {
     id: "#45621",
+    storeName: "麦霸天下KTV",
+    storeAddress: "西城区西单北大街120号",
     title: "粤语金曲之夜",
     price: 8.8,
     capacity: 8,
@@ -123,6 +129,8 @@ const karaokeRooms = [
   },
   {
     id: "#19283",
+    storeName: "唱享时光KTV",
+    storeAddress: "东城区王府井大街58号",
     title: "情歌对唱专场",
     price: 15.9,
     capacity: 6,
@@ -253,30 +261,45 @@ const Messages = () => {
 
   return (
     <div className="h-screen flex flex-col bg-background">
-      {/* Header with Tabs */}
+      {/* Header with Tabs and Publish Button */}
       <div className="flex-shrink-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border/40 pt-safe">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="w-full h-12 bg-transparent rounded-none border-b-0 p-0">
-            <TabsTrigger
-              value="friends"
-              className="flex-1 h-full rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none font-medium"
-            >
-              关注
-            </TabsTrigger>
-            <TabsTrigger
-              value="discover"
-              className="flex-1 h-full rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none font-medium"
-            >
-              发现
-            </TabsTrigger>
-            <TabsTrigger
-              value="karaoke"
-              className="flex-1 h-full rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none font-medium"
-            >
-              K歌房
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
+        <div className="flex items-center h-12 px-4">
+          {/* 发布按钮 */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="w-9 h-9 rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
+          >
+            <Plus className="w-5 h-5" />
+          </Button>
+          
+          {/* Tabs */}
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1">
+            <TabsList className="w-full h-12 bg-transparent rounded-none border-b-0 p-0 justify-center gap-6">
+              <TabsTrigger
+                value="friends"
+                className="h-full px-2 rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none font-medium"
+              >
+                关注
+              </TabsTrigger>
+              <TabsTrigger
+                value="discover"
+                className="h-full px-2 rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none font-medium"
+              >
+                发现
+              </TabsTrigger>
+              <TabsTrigger
+                value="karaoke"
+                className="h-full px-2 rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none font-medium"
+              >
+                K歌房
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
+          
+          {/* 占位，保持居中 */}
+          <div className="w-9" />
+        </div>
       </div>
 
       {/* Content Area with Pull to Refresh */}
@@ -318,7 +341,7 @@ const Messages = () => {
             <div className="relative mb-4">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
-                placeholder="搜索房间号 / 主播名"
+                placeholder="搜索房间号 / KTV店名"
                 className="pl-10 rounded-full bg-muted/50 border-0"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -331,13 +354,18 @@ const Messages = () => {
                 const isFull = room.current >= room.capacity;
                 return (
                   <Card key={room.id} className="p-4">
-                    <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-start justify-between mb-2">
                       <div>
                         <div className="flex items-center gap-2 mb-1">
                           <Music className="w-4 h-4 text-primary" />
+                          <span className="font-semibold text-foreground">{room.storeName}</span>
                           <span className="text-xs text-muted-foreground">{room.id}</span>
                         </div>
-                        <h3 className="font-semibold text-foreground">{room.title}</h3>
+                        <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
+                          <MapPin className="w-3 h-3" />
+                          <span>{room.storeAddress}</span>
+                        </div>
+                        <h3 className="text-sm text-foreground">{room.title}</h3>
                       </div>
                       <Badge variant={isFull ? "secondary" : "default"} className="rounded-full">
                         ¥{room.price}
