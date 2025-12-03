@@ -17,8 +17,8 @@ const Profile = () => {
   ];
 
   const menuItems = [
-    { icon: UserPlus, label: "邀请好友", rightText: "现金赚不停", rightIcon: "🧧", useYuanbao: false },
-    { icon: Gift, label: "福利中心", rightText: "上传本人头像", rightIcon: "", useYuanbao: true },
+    { icon: UserPlus, label: "邀请好友", rightText: "现金赚不停", rightIcon: "🧧" },
+    { icon: Gift, label: "福利中心", rightText: "上传本人头像", rightIcon: "💎" },
   ];
 
   const listItems = [
@@ -88,11 +88,7 @@ const Profile = () => {
                   <Icon className="w-4 h-4 text-muted-foreground" />
                   <span className="flex-1 text-left text-sm font-medium">{item.label}</span>
                   <span className="text-xs text-muted-foreground">{item.rightText}</span>
-                  {item.useYuanbao ? (
-                    <DiamondIcon className="w-4 h-4" />
-                  ) : (
-                    <span className="text-sm">{item.rightIcon}</span>
-                  )}
+                  <span className="text-sm">{item.rightIcon}</span>
                   <ChevronRight className="w-4 h-4 text-muted-foreground" />
                 </button>
               );
