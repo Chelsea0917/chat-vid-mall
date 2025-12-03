@@ -427,40 +427,48 @@ const Videos = () => {
   return (
     <div className="relative h-screen bg-background overflow-hidden flex flex-col">
       {/* 顶部主分类条 - 抖音风格 */}
-      <div className="flex-shrink-0 bg-black/90 pt-safe">
-        <div className="flex items-center justify-center h-11 px-4">
-          <div className="flex items-center gap-6">
-            <button
-              onClick={() => setMainTab("video")}
-              className={cn(
-                "text-[15px] transition-all relative py-2",
-                mainTab === "video" 
-                  ? "text-white font-semibold" 
-                  : "text-white/60 font-normal"
-              )}
-            >
-              视频
-              {mainTab === "video" && (
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-5 h-[2px] bg-white rounded-full" />
-              )}
-            </button>
-            <button
-              onClick={() => setMainTab("daily")}
-              className={cn(
-                "text-[15px] transition-all relative py-2",
-                mainTab === "daily" 
-                  ? "text-white font-semibold" 
-                  : "text-white/60 font-normal"
-              )}
-            >
-              日常
-              {mainTab === "daily" && (
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-5 h-[2px] bg-white rounded-full" />
-              )}
-            </button>
+      {(() => {
+        const isVideoMode = mainTab === "video";
+        const activeColor = isVideoMode ? "text-white" : "text-foreground";
+        const inactiveColor = isVideoMode ? "text-white/60" : "text-muted-foreground";
+        const underlineColor = isVideoMode ? "bg-white" : "bg-foreground";
+        
+        return (
+          <div className={cn(
+            "pt-safe z-40",
+            isVideoMode ? "absolute top-0 left-0 right-0" : "relative bg-background"
+          )}>
+            <div className="flex items-center justify-center h-11 px-4">
+              <div className="flex items-center gap-6">
+                <button
+                  onClick={() => setMainTab("video")}
+                  className={cn(
+                    "text-[15px] transition-all relative py-2",
+                    isVideoMode ? `font-semibold ${activeColor}` : `font-normal ${inactiveColor}`
+                  )}
+                >
+                  视频
+                  {isVideoMode && (
+                    <span className={cn("absolute bottom-0 left-1/2 -translate-x-1/2 w-5 h-[2px] rounded-full", underlineColor)} />
+                  )}
+                </button>
+                <button
+                  onClick={() => setMainTab("daily")}
+                  className={cn(
+                    "text-[15px] transition-all relative py-2",
+                    !isVideoMode ? `font-semibold ${activeColor}` : `font-normal ${inactiveColor}`
+                  )}
+                >
+                  日常
+                  {!isVideoMode && (
+                    <span className={cn("absolute bottom-0 left-1/2 -translate-x-1/2 w-5 h-[2px] rounded-full", underlineColor)} />
+                  )}
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        );
+      })()}
 
       {/* 视频板块 */}
       {mainTab === "video" && (
@@ -513,13 +521,13 @@ const Videos = () => {
         <div className="flex-1 flex flex-col overflow-hidden">
           {/* 日常分类选项卡 */}
           <div className="flex-shrink-0 bg-background px-4 py-2">
-            <div className="flex gap-2">
+            <div className="flex gap-2 justify-start">
               {dailyCategories.map((cat) => (
                 <button
                   key={cat.key}
                   onClick={() => setDailyTab(cat.key)}
                   className={cn(
-                    "flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium transition-all",
+                    "flex items-center gap-0.5 px-2.5 py-1 rounded-full text-[11px] font-medium transition-all",
                     dailyTab === cat.key
                       ? "bg-primary text-primary-foreground"
                       : "bg-muted/50 text-muted-foreground hover:bg-muted"
