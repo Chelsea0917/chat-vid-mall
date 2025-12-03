@@ -14,30 +14,39 @@ import { cn } from "@/lib/utils";
 const friendPosts = [
   {
     id: 1,
-    user: { name: "秀秀", avatar: "👩", verified: true },
+    user: { name: "秀秀", avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop", verified: true },
     time: "40秒前",
     content: "",
-    images: ["🌸", "🌺", "🌻"],
+    images: [
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=300&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=300&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=400&fit=crop"
+    ],
     likes: 24,
     comments: 5,
     liked: false,
   },
   {
     id: 2,
-    user: { name: "直率的小猪", avatar: "🧑", verified: true },
+    user: { name: "直率的小猪", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop", verified: true },
     time: "41秒前",
     content: "",
-    images: ["🎵"],
+    images: [
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=500&fit=crop"
+    ],
     likes: 1,
     comments: 0,
     liked: false,
   },
   {
     id: 3,
-    user: { name: "月亮代表我的心", avatar: "👧", verified: true },
+    user: { name: "月亮代表我的心", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop", verified: true },
     time: "43秒前",
     content: "来认识一下吧",
-    images: ["🏔️", "🌄"],
+    images: [
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&h=400&fit=crop"
+    ],
     likes: 89,
     comments: 23,
     liked: false,
@@ -48,30 +57,38 @@ const friendPosts = [
 const discoverPosts = [
   {
     id: 1,
-    user: { name: "旅行者小王", avatar: "👨‍🦱", verified: false },
+    user: { name: "旅行者小王", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop", verified: false },
     time: "刚刚",
     content: "第一次来这个城市，有什么好玩的推荐吗？",
-    images: ["🏙️"],
+    images: [
+      "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=400&h=300&fit=crop"
+    ],
     likes: 8,
     comments: 3,
     liked: false,
   },
   {
     id: 2,
-    user: { name: "美食达人", avatar: "👩‍🍳", verified: true },
+    user: { name: "美食达人", avatar: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=100&h=100&fit=crop", verified: true },
     time: "15分钟前",
     content: "今天做了一道拿手菜，味道绝了！",
-    images: ["🍜", "🥗", "🍰"],
+    images: [
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=300&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=300&h=300&fit=crop"
+    ],
     likes: 156,
     comments: 45,
     liked: false,
   },
   {
     id: 3,
-    user: { name: "音乐小哥", avatar: "🎸", verified: false },
+    user: { name: "音乐小哥", avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=100&h=100&fit=crop", verified: false },
     time: "30分钟前",
     content: "晚上直播唱歌，欢迎来捧场！",
-    images: ["🎤"],
+    images: [
+      "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=400&fit=crop"
+    ],
     likes: 234,
     comments: 67,
     liked: false,
@@ -173,9 +190,7 @@ const Messages = () => {
     <div className="py-4 border-b border-border/30">
       <div className="flex items-start gap-3">
         <Avatar className="w-12 h-12 flex-shrink-0">
-          <AvatarFallback className="text-2xl bg-gradient-to-br from-primary/10 to-secondary/10">
-            {post.user.avatar}
-          </AvatarFallback>
+          <img src={post.user.avatar} alt={post.user.name} className="w-full h-full object-cover" />
         </Avatar>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-1">
@@ -206,9 +221,9 @@ const Messages = () => {
             {post.images.map((img, idx) => (
               <div
                 key={idx}
-                className="aspect-square rounded-md bg-gradient-to-br from-primary/5 to-secondary/5 flex items-center justify-center text-3xl"
+                className="aspect-square rounded-md overflow-hidden bg-muted"
               >
-                {img}
+                <img src={img} alt="" className="w-full h-full object-cover" />
               </div>
             ))}
           </div>
